@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { BookOpen, Clock, ArrowLeft, CheckCircle2, ChevronRight, Scroll, Lightbulb, Target, Pencil, Sparkles, ArrowRight, CheckSquare, XCircle } from 'lucide-react';
 import { lessons, Lesson } from '../data/lessons';
 import { useUser } from '../contexts/UserContext';
+import FloatingTOC from '../components/FloatingTOC';
+import ReviewerBlock from '../components/ReviewerBlock';
+import CitationBlock from '../components/CitationBlock';
 
 export default function LessonsPage() {
   const { user, isLoggedIn, completeLesson } = useUser();
@@ -105,9 +108,52 @@ function LessonDetail({ lesson, onBack, onComplete, isCompleted }: { lesson: Les
 
   const quizScore: number = quizAnswers.filter((ans, i) => ans === lesson.quizQuestions[i].correctAnswer).length;
 
+  // Данные для плавающего оглавления
+  const tocItems = [
+    { id: 'main-thought', title: 'Главная мысль', level: 1 },
+    { id: 'scriptures', title: 'Тексты Писания', level: 1 },
+    { id: 'analysis', title: 'Разбор', level: 1 },
+    { id: 'memory-verse', title: 'Стих для заучивания', level: 2 },
+    { id: 'homework', title: 'Домашнее задание', level: 1 },
+    { id: 'quiz', title: 'Тест', level: 1 },
+  ];
+
+  // Данные для блока рецензирования
+  const reviewers = [
+    {
+      name: 'Плиев Владимир Бексултанович',
+      title: 'Пресвитер, Руководитель ВЦ «Духовное Возрождение»',
+      credentials: [
+        'Более 20 лет пасторского служения',
+        'Специалист по молитвенной жизни',
+        'Выпускник богословских курсов МСЦ ЕХБ'
+      ]
+    }
+  ];
+
+  // Данные для цитирования
+  const citations = [
+    {
+      source: 'Вочман Ни, «Духовный человек»',
+      author: 'Watchman Nee',
+      year: '1928',
+      quote: 'Дух — это орган богопознания, через который мы непосредственно воспринимаем Бога.'
+    },
+    {
+      source: 'Эндрю Мюррей, «В школе молитвы со Христом»',
+      author: 'Andrew Murray',
+      year: '1895'
+    },
+    {
+      source: 'Ричард Фостер, «Прославление дисциплины»',
+      author: 'Richard Foster',
+      year: '1978'
+    }
+  ];
+
   return (
     <div className="max-w-4xl mx-auto">
-      <button onClick={onBack} className="flex items-center gap-2 text-amber-600 hover:text-amber-700 font-medium mb-6">
+      <button onClick={onBack} className="flex items-center gap-2 text-amber-600 hover:text-amber-700 font-medium mb-6 min-h-[48px]">
         <ArrowLeft className="w-4 h-4" /> Назад к урокам
       </button>
 
@@ -129,6 +175,13 @@ function LessonDetail({ lesson, onBack, onComplete, isCompleted }: { lesson: Les
         <h1 className="text-2xl md:text-3xl font-bold mb-2">{lesson.title}</h1>
         <p className="text-white/90 text-lg italic">{lesson.subtitle}</p>
       </div>
+
+      {/* Блок рецензирования (E-E-A-T) */}
+      <ReviewerBlock 
+        reviewers={reviewers} 
+        reviewDate="2024-02-20"
+        lastUpdated="2024-02-20"
+      />
 
       {/* Tabs */}
       <div className="flex overflow-x-auto gap-1 mb-6 bg-white rounded-xl p-1.5 shadow-sm border border-gray-100">
@@ -155,7 +208,7 @@ function LessonDetail({ lesson, onBack, onComplete, isCompleted }: { lesson: Les
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
         {activeTab === 'overview' && (
           <div className="space-y-6">
-            <div>
+            <div id="main-thought">
               <h2 className="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2">
                 <Target className="w-5 h-5 text-amber-500" /> Главная мысль урока
               </h2>
@@ -167,7 +220,7 @@ function LessonDetail({ lesson, onBack, onComplete, isCompleted }: { lesson: Les
             </div>
 
             {/* Memory Verse */}
-            <div className="bg-sky-50 rounded-xl p-5 border border-sky-100">
+            <div id="memory-verse" className="bg-sky-50 rounded-xl p-5 border border-sky-100">
               <div className="flex items-center gap-2 mb-2">
                 <Sparkles className="w-4 h-4 text-sky-600" />
                 <span className="text-sky-600 font-medium text-sm">Стих для заучивания</span>
@@ -190,7 +243,7 @@ function LessonDetail({ lesson, onBack, onComplete, isCompleted }: { lesson: Les
         )}
 
         {activeTab === 'scriptures' && (
-          <div className="space-y-6">
+          <div id="scriptures" className="space-y-6">
             <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
               <Scroll className="w-5 h-5 text-amber-500" /> Тексты Писания
             </h2>
@@ -204,7 +257,7 @@ function LessonDetail({ lesson, onBack, onComplete, isCompleted }: { lesson: Les
         )}
 
         {activeTab === 'analysis' && (
-          <div className="space-y-8">
+          <div id="analysis" className="space-y-8">
             <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
               <Lightbulb className="w-5 h-5 text-amber-500" /> Разбор текстов Писания
             </h2>
@@ -263,7 +316,7 @@ function LessonDetail({ lesson, onBack, onComplete, isCompleted }: { lesson: Les
         )}
 
         {activeTab === 'quiz' && (
-          <div className="space-y-6">
+          <div id="quiz" className="space-y-6">
             <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
               <CheckSquare className="w-5 h-5 text-amber-500" /> Тест для усвоения урока
             </h2>
@@ -349,7 +402,7 @@ function LessonDetail({ lesson, onBack, onComplete, isCompleted }: { lesson: Les
         )}
 
         {activeTab === 'homework' && (
-          <div className="space-y-6">
+          <div id="homework" className="space-y-6">
             <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
               <Pencil className="w-5 h-5 text-amber-500" /> Домашнее практическое задание
             </h2>
@@ -389,7 +442,7 @@ function LessonDetail({ lesson, onBack, onComplete, isCompleted }: { lesson: Les
         {!isCompleted ? (
           <button
             onClick={() => onComplete(lesson.id)}
-            className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white py-4 rounded-xl font-medium hover:from-emerald-600 hover:to-green-600 transition-all flex items-center justify-center gap-2 shadow-sm"
+            className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white py-4 rounded-xl font-medium hover:from-emerald-600 hover:to-green-600 transition-all flex items-center justify-center gap-2 shadow-sm min-h-[48px]"
           >
             <CheckCircle2 className="w-5 h-5" />
             Отметить урок как пройденный
@@ -401,6 +454,12 @@ function LessonDetail({ lesson, onBack, onComplete, isCompleted }: { lesson: Les
           </div>
         )}
       </div>
+
+      {/* Блок цитирования первоисточников */}
+      <CitationBlock citations={citations} />
+
+      {/* Плавающее оглавление */}
+      <FloatingTOC items={tocItems} />
     </div>
   );
 }
