@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { MessageCircle, Send, User, Mail, CheckCircle2 } from 'lucide-react';
+import { MessageCircle, Send, User, Mail, CheckCircle2, AlertCircle } from 'lucide-react';
+import { sendAdminMessage, isEmailConfigured } from '../config/emailjs';
 
 interface Message {
   id: number;
@@ -48,10 +49,17 @@ export default function FeedbackPage() {
     ];
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSending, setIsSending] = useState(false);
+  const [sendError, setSendError] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !message.trim()) return;
 
+    setIsSending(true);
+    setSendError(false);
+
+    // Сохраняем сообщение локально
     const newMessage: Message = {
       id: Date.now(),
       author: name,
@@ -64,12 +72,32 @@ export default function FeedbackPage() {
     setMessages(updated);
     localStorage.setItem('feedbackMessages', JSON.stringify(updated));
 
+    // Отправляем email администратору
+    if (isEmailConfigured()) {
+      const success = await sendAdminMessage({
+        from_name: name,
+        reply_to: email || 'не указан',
+        message: message,
+        subject: `Сообщение от ${name} - Школа Молитвы`,
+      });
+
+      if (!success) {
+        setSendError(true);
+        setIsSending(false);
+        return;
+      }
+    } else {
+      // Если EmailJS не настроен, показываем предупреждение
+      console.warn('EmailJS не настроен. Сообщение сохранено только локально.');
+    }
+
+    setIsSending(false);
     setSent(true);
     setName('');
     setEmail('');
     setMessage('');
 
-    setTimeout(() => setSent(false), 3000);
+    setTimeout(() => setSent(false), 5000);
   };
 
   return (
@@ -94,10 +122,39 @@ export default function FeedbackPage() {
               <div className="text-center py-8">
                 <CheckCircle2 className="w-12 h-12 text-green-500 mx-auto mb-3" />
                 <p className="text-green-700 font-medium">Сообщение отправлено!</p>
-                <p className="text-gray-500 text-sm mt-1">Мы ответим вам в ближайшее время</p>
+                <p className="text-gray-500 text-sm mt-1">
+                  {isEmailConfigured() 
+                    ? 'Мы получили ваше сообщение и ответим в ближайшее время'
+                    : 'Сообщение сохранено. Администратор получит его после настройки системы уведомлений'
+                  }
+                </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
+                {!isEmailConfigured() && (
+                  <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm text-amber-800">
+                    <div className="flex items-start gap-2">
+                      <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <p className="font-medium">Система уведомлений в настройке</p>
+                        <p className="text-xs mt-1">Сообщения сохраняются локально. Для получения email-уведомлений администратору необходимо настроить EmailJS.</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {sendError && (
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-800">
+                    <div className="flex items-start gap-2">
+                      <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <p className="font-medium">Ошибка отправки</p>
+                        <p className="text-xs mt-1">Не удалось отправить сообщение. Пожалуйста, попробуйте позже или свяжитесь с нами напрямую: vcdv@mail.ru</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 <div>
                   <label className="text-sm text-gray-600 mb-1 block">Ваше имя</label>
                   <input
@@ -135,9 +192,19 @@ export default function FeedbackPage() {
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-teal-500 to-cyan-500 text-white py-3 rounded-xl font-medium hover:from-teal-600 hover:to-cyan-600 transition-all flex items-center justify-center gap-2"
+                  disabled={isSending}
+                  className="w-full bg-gradient-to-r from-teal-500 to-cyan-500 text-white py-3 rounded-xl font-medium hover:from-teal-600 hover:to-cyan-600 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <Send className="w-4 h-4" /> Отправить
+                  {isSending ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Отправка...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4" /> Отправить
+                    </>
+                  )}
                 </button>
               </form>
             )}
