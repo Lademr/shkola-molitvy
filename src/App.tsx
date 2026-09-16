@@ -14,6 +14,7 @@ import ProfilePage from './pages/ProfilePage';
 import DiaryPage from './pages/DiaryPage';
 import CommunityPage from './pages/CommunityPage';
 import BlogPage from './pages/BlogPage';
+import BlogPostPage from './pages/BlogPostPage';
 import VideosPage from './pages/VideosPage';
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
             <Route path="/diary" element={<DiaryPage />} />
             <Route path="/community" element={<CommunityPage />} />
             <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/videos" element={<VideosPage />} />
           </Routes>
         </main>
