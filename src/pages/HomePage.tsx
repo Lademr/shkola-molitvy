@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { BookOpen, Heart, CheckSquare, Bell, MessageCircle, Sparkles, ArrowRight, Scroll } from 'lucide-react';
+import { BookOpen, Heart, CheckSquare, Bell, MessageCircle, Sparkles, ArrowRight, Scroll, FileText } from 'lucide-react';
 import { getDailyVerse, getDailyMotivation } from '../data/scriptures';
 import { lessons } from '../data/lessons';
 
@@ -12,6 +12,7 @@ export default function HomePage() {
     { path: '/lessons', title: 'Уроки', description: 'Глубокое обучение молитвенной жизни', icon: BookOpen, color: 'from-amber-400 to-orange-500' },
     { path: '/prayers', title: 'Молитвы', description: 'Примеры молитв на каждый день', icon: Heart, color: 'from-rose-400 to-pink-500' },
     { path: '/scripture', title: 'Писание', description: 'Тексты и глубокие разборы', icon: Scroll, color: 'from-sky-400 to-blue-500' },
+    { path: '/blog', title: 'Блог', description: 'Статьи о молитвенной жизни', icon: FileText, color: 'from-indigo-400 to-purple-500' },
     { path: '/quiz', title: 'Тесты', description: 'Проверь свои знания', icon: CheckSquare, color: 'from-emerald-400 to-green-500' },
     { path: '/reminders', title: 'Напоминания', description: 'Настрой время для молитвы', icon: Bell, color: 'from-purple-400 to-violet-500' },
     { path: '/feedback', title: 'Обратная связь', description: 'Связь с наставником и братьями', icon: MessageCircle, color: 'from-teal-400 to-cyan-500' },
