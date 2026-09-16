@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BookOpen, Clock, ArrowLeft, CheckCircle2, ChevronRight, Scroll, Lightbulb, Target, Pencil, Sparkles, ArrowRight, CheckSquare, XCircle } from 'lucide-react';
 import { lessons, Lesson } from '../data/lessons';
 import { useUser } from '../contexts/UserContext';
@@ -9,6 +9,13 @@ import CitationBlock from '../components/CitationBlock';
 export default function LessonsPage() {
   const { user, isLoggedIn, completeLesson } = useUser();
   const [selectedLesson, setSelectedLesson] = useState<Lesson | null>(null);
+
+  // Скролл к началу при открытии урока
+  useEffect(() => {
+    if (selectedLesson) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [selectedLesson]);
   
   // Используем данные из UserContext если пользователь авторизован, иначе localStorage
   const [localCompletedLessons, setLocalCompletedLessons] = useState<number[]>(() => {
@@ -183,74 +190,104 @@ function LessonDetail({ lesson, onBack, onComplete, isCompleted }: { lesson: Les
         lastUpdated="2024-02-20"
       />
 
-      {/* Tabs */}
-      <div className="flex overflow-x-auto gap-1 mb-6 bg-white rounded-xl p-1.5 shadow-sm border border-gray-100">
-        {tabs.map(tab => {
-          const Icon = tab.icon;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
-                activeTab === tab.id
-                  ? 'bg-amber-500 text-white shadow-sm'
-                  : 'text-gray-500 hover:bg-amber-50 hover:text-amber-700'
-              }`}
-            >
-              <Icon className="w-4 h-4" />
-              {tab.label}
-            </button>
-          );
-        })}
+      {/* Tabs - Улучшенный дизайн для мобильных устройств */}
+      <div className="mb-6">
+        {/* Подсказка для мобильных */}
+        <div className="lg:hidden mb-3 px-3 py-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+          <p className="text-xs text-blue-700 dark:text-blue-300 flex items-center gap-2">
+            <span className="text-base">💡</span>
+            <span>Выберите раздел для просмотра содержимого урока</span>
+          </p>
+        </div>
+
+        {/* Вкладки */}
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-3">
+          {tabs.map(tab => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => {
+                  setActiveTab(tab.id);
+                  // Плавный скролл к началу контента на мобильных
+                  if (window.innerWidth < 1024) {
+                    setTimeout(() => {
+                      const contentElement = document.getElementById('tab-content');
+                      if (contentElement) {
+                        contentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }
+                    }, 100);
+                  }
+                }}
+                className={`relative flex flex-col md:flex-row items-center justify-center gap-2 px-4 py-4 md:py-3 rounded-xl font-medium transition-all min-h-[64px] md:min-h-[48px] ${
+                  isActive
+                    ? 'bg-gradient-to-br from-amber-500 to-orange-500 text-white shadow-lg scale-105 ring-2 ring-amber-300 dark:ring-amber-600'
+                    : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-gray-700 hover:text-amber-700 dark:hover:text-amber-400 border-2 border-gray-200 dark:border-gray-700 hover:border-amber-300 dark:hover:border-amber-600'
+                }`}
+              >
+                <Icon className={`w-6 h-6 md:w-5 md:h-5 ${isActive ? 'text-white' : 'text-amber-500'}`} />
+                <span className="text-sm md:text-xs font-semibold">{tab.label}</span>
+                {isActive && (
+                  <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white rounded-full shadow-md md:hidden"></div>
+                )}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Tab Content */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
+      <div id="tab-content" className="bg-white rounded-2xl shadow-sm border-2 border-gray-200 dark:border-gray-700 p-4 md:p-8">
         {activeTab === 'overview' && (
-          <div className="space-y-6">
-            <div id="main-thought">
-              <h2 className="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2">
-                <Target className="w-5 h-5 text-amber-500" /> Главная мысль урока
+          <div className="space-y-8">
+            <div id="main-thought" className="pb-6 border-b-2 border-gray-100 dark:border-gray-700">
+              <h2 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4 flex items-center gap-2">
+                <Target className="w-6 h-6 text-amber-500" /> Главная мысль урока
               </h2>
-              <div className="bg-amber-50 rounded-xl p-5 border border-amber-100">
+              <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-xl p-5 md:p-6 border-2 border-amber-200 dark:border-amber-800">
                 {lesson.mainThought.split('\n').map((p, i) => (
-                  <p key={i} className="text-gray-700 leading-relaxed mb-3 last:mb-0">{p}</p>
+                  <p key={i} className="text-gray-700 dark:text-gray-200 leading-relaxed mb-3 last:mb-0 text-base md:text-lg">{p}</p>
                 ))}
               </div>
             </div>
 
             {/* Memory Verse */}
-            <div id="memory-verse" className="bg-sky-50 rounded-xl p-5 border border-sky-100">
-              <div className="flex items-center gap-2 mb-2">
-                <Sparkles className="w-4 h-4 text-sky-600" />
-                <span className="text-sky-600 font-medium text-sm">Стих для заучивания</span>
+            <div id="memory-verse" className="pb-6 border-b-2 border-gray-100 dark:border-gray-700">
+              <div className="bg-gradient-to-br from-sky-50 to-blue-50 dark:from-sky-900/20 dark:to-blue-900/20 rounded-xl p-5 md:p-6 border-2 border-sky-200 dark:border-sky-800">
+                <div className="flex items-center gap-2 mb-3">
+                  <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-sky-600 dark:text-sky-400" />
+                  <span className="text-sky-700 dark:text-sky-300 font-bold text-sm md:text-base">Стих для заучивания</span>
+                </div>
+                <p className="text-sky-900 dark:text-sky-100 italic text-lg md:text-xl leading-relaxed mb-2">«{lesson.memoryVerse.text}»</p>
+                <p className="text-sky-700 dark:text-sky-300 font-semibold text-sm md:text-base">— {lesson.memoryVerse.reference}</p>
               </div>
-              <p className="text-sky-900 italic text-lg leading-relaxed">«{lesson.memoryVerse.text}»</p>
-              <p className="text-sky-600 font-medium mt-2 text-sm">— {lesson.memoryVerse.reference}</p>
             </div>
 
             {/* Bridge to next */}
-            <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-5 border border-purple-100">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-xl">🔥</span>
-                <span className="font-bold text-purple-800">Мостик к следующему уроку</span>
+            <div>
+              <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl p-5 md:p-6 border-2 border-purple-200 dark:border-purple-800">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-2xl">🔥</span>
+                  <span className="font-bold text-purple-800 dark:text-purple-200 text-lg md:text-xl">Мостик к следующему уроку</span>
+                </div>
+                {lesson.bridgeToNext.split('\n').map((p, i) => (
+                  <p key={i} className="text-purple-700 dark:text-purple-200 leading-relaxed mb-2 last:mb-0 text-base">{p}</p>
+                ))}
               </div>
-              {lesson.bridgeToNext.split('\n').map((p, i) => (
-                <p key={i} className="text-purple-700 leading-relaxed mb-2 last:mb-0">{p}</p>
-              ))}
             </div>
           </div>
         )}
 
         {activeTab === 'scriptures' && (
           <div id="scriptures" className="space-y-6">
-            <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-              <Scroll className="w-5 h-5 text-amber-500" /> Тексты Писания
+            <h2 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6 flex items-center gap-2 pb-4 border-b-2 border-gray-200 dark:border-gray-700">
+              <Scroll className="w-6 h-6 md:w-7 md:h-7 text-amber-500" /> Тексты Писания
             </h2>
             {lesson.scriptures.map((s, i) => (
-              <div key={i} className="bg-sky-50 rounded-xl p-5 border border-sky-100">
-                <p className="text-sky-600 font-bold text-sm mb-2">{s.reference}</p>
-                <p className="text-gray-700 leading-relaxed italic">«{s.text}»</p>
+              <div key={i} className="bg-gradient-to-br from-sky-50 to-blue-50 dark:from-sky-900/20 dark:to-blue-900/20 rounded-xl p-5 md:p-6 border-2 border-sky-200 dark:border-sky-800">
+                <p className="text-sky-700 dark:text-sky-300 font-bold text-base md:text-lg mb-3">{s.reference}</p>
+                <p className="text-gray-700 dark:text-gray-200 leading-relaxed italic text-base md:text-lg">«{s.text}»</p>
               </div>
             ))}
           </div>
@@ -258,55 +295,55 @@ function LessonDetail({ lesson, onBack, onComplete, isCompleted }: { lesson: Les
 
         {activeTab === 'analysis' && (
           <div id="analysis" className="space-y-8">
-            <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-              <Lightbulb className="w-5 h-5 text-amber-500" /> Разбор текстов Писания
+            <h2 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4 flex items-center gap-2 pb-4 border-b-2 border-gray-200 dark:border-gray-700">
+              <Lightbulb className="w-6 h-6 md:w-7 md:h-7 text-amber-500" /> Разбор текстов Писания
             </h2>
-            <p className="text-gray-500 text-sm italic">Метод изучения: Последовательный индуктивно-молитвенный разбор стихов на основе методологии активного изучения Библии</p>
+            <p className="text-gray-600 dark:text-gray-400 text-sm md:text-base italic mb-6">Метод изучения: Последовательный индуктивно-молитвенный разбор стихов на основе методологии активного изучения Библии</p>
 
             {/* Stage 1 */}
-            <div className="border-l-4 border-amber-400 pl-5">
-              <h3 className="font-bold text-gray-800 text-lg mb-3">
+            <div className="border-l-4 border-amber-400 pl-4 md:pl-5 pb-6 mb-6 border-b-2 border-gray-100 dark:border-gray-700">
+              <h3 className="font-bold text-gray-800 dark:text-gray-100 text-lg md:text-xl mb-3">
                 <span className="text-amber-500">ЭТАП 1:</span> {lesson.analysis.stage1.title}
               </h3>
-              <p className="text-gray-500 text-sm mb-3 italic">(О чём говорит текст?)</p>
+              <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 italic">(О чём говорит текст?)</p>
               <div className="space-y-3">
                 {lesson.analysis.stage1.points.map((point, i) => (
-                  <div key={i} className="flex items-start gap-3 bg-amber-50/50 rounded-lg p-3">
-                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-200 text-amber-800 flex items-center justify-center text-xs font-bold">{i + 1}</span>
-                    <p className="text-gray-700 text-sm leading-relaxed">{point}</p>
+                  <div key={i} className="flex items-start gap-3 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-lg p-4 border border-amber-200 dark:border-amber-800">
+                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-amber-300 dark:bg-amber-700 text-amber-900 dark:text-amber-100 flex items-center justify-center text-sm font-bold">{i + 1}</span>
+                    <p className="text-gray-700 dark:text-gray-200 text-sm md:text-base leading-relaxed">{point}</p>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Stage 2 */}
-            <div className="border-l-4 border-sky-400 pl-5">
-              <h3 className="font-bold text-gray-800 text-lg mb-3">
+            <div className="border-l-4 border-sky-400 pl-4 md:pl-5 pb-6 mb-6 border-b-2 border-gray-100 dark:border-gray-700">
+              <h3 className="font-bold text-gray-800 dark:text-gray-100 text-lg md:text-xl mb-3">
                 <span className="text-sky-500">ЭТАП 2:</span> {lesson.analysis.stage2.title}
               </h3>
-              <p className="text-gray-500 text-sm mb-3 italic">(Что это означает?)</p>
+              <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 italic">(Что это означает?)</p>
               <div className="space-y-3">
                 {lesson.analysis.stage2.points.map((point, i) => (
-                  <div key={i} className="flex items-start gap-3 bg-sky-50/50 rounded-lg p-3">
-                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-sky-200 text-sky-800 flex items-center justify-center text-xs font-bold">{i + 1}</span>
-                    <p className="text-gray-700 text-sm leading-relaxed">{point}</p>
+                  <div key={i} className="flex items-start gap-3 bg-gradient-to-br from-sky-50 to-blue-50 dark:from-sky-900/20 dark:to-blue-900/20 rounded-lg p-4 border border-sky-200 dark:border-sky-800">
+                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-sky-300 dark:bg-sky-700 text-sky-900 dark:text-sky-100 flex items-center justify-center text-sm font-bold">{i + 1}</span>
+                    <p className="text-gray-700 dark:text-gray-200 text-sm md:text-base leading-relaxed">{point}</p>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Stage 3 - Acronym */}
-            <div className="border-l-4 border-purple-400 pl-5">
-              <h3 className="font-bold text-gray-800 text-lg mb-3">
+            <div className="border-l-4 border-purple-400 pl-4 md:pl-5">
+              <h3 className="font-bold text-gray-800 dark:text-gray-100 text-lg md:text-xl mb-4">
                 <span className="text-purple-500">ЭТАП 3:</span> {lesson.analysis.stage3.title}
               </h3>
               <div className="grid gap-3">
                 {lesson.analysis.stage3.acronym.map((item, i) => (
-                  <div key={i} className="flex items-start gap-3 bg-purple-50/50 rounded-lg p-3">
-                    <span className="flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-purple-400 to-pink-500 text-white flex items-center justify-center font-bold text-lg">{item.letter}</span>
-                    <div>
-                      <p className="font-bold text-purple-800 text-sm">{item.word}</p>
-                      <p className="text-gray-700 text-sm leading-relaxed mt-0.5">{item.text}</p>
+                  <div key={i} className="flex items-start gap-3 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-lg p-4 border-2 border-purple-200 dark:border-purple-800">
+                    <span className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 text-white flex items-center justify-center font-bold text-xl md:text-2xl shadow-md">{item.letter}</span>
+                    <div className="flex-1">
+                      <p className="font-bold text-purple-800 dark:text-purple-200 text-sm md:text-base mb-1">{item.word}</p>
+                      <p className="text-gray-700 dark:text-gray-200 text-sm md:text-base leading-relaxed">{item.text}</p>
                     </div>
                   </div>
                 ))}
@@ -317,13 +354,13 @@ function LessonDetail({ lesson, onBack, onComplete, isCompleted }: { lesson: Les
 
         {activeTab === 'quiz' && (
           <div id="quiz" className="space-y-6">
-            <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-              <CheckSquare className="w-5 h-5 text-amber-500" /> Тест для усвоения урока
+            <h2 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6 flex items-center gap-2 pb-4 border-b-2 border-gray-200 dark:border-gray-700">
+              <CheckSquare className="w-6 h-6 md:w-7 md:h-7 text-amber-500" /> Тест для усвоения урока
             </h2>
 
             {lesson.quizQuestions.map((q, qIndex) => (
-              <div key={qIndex} className="bg-gray-50 rounded-xl p-5 border border-gray-100">
-                <p className="font-bold text-gray-800 mb-3">
+              <div key={qIndex} className="bg-gradient-to-br from-gray-50 to-slate-50 dark:from-gray-800 dark:to-slate-800 rounded-xl p-5 md:p-6 border-2 border-gray-200 dark:border-gray-700">
+                <p className="font-bold text-gray-800 dark:text-gray-100 mb-4 text-base md:text-lg">
                   <span className="text-amber-500">Вопрос {qIndex + 1}:</span> {q.question}
                 </p>
                 <div className="space-y-2">
@@ -403,33 +440,35 @@ function LessonDetail({ lesson, onBack, onComplete, isCompleted }: { lesson: Les
 
         {activeTab === 'homework' && (
           <div id="homework" className="space-y-6">
-            <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-              <Pencil className="w-5 h-5 text-amber-500" /> Домашнее практическое задание
+            <h2 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6 flex items-center gap-2 pb-4 border-b-2 border-gray-200 dark:border-gray-700">
+              <Pencil className="w-6 h-6 md:w-7 md:h-7 text-amber-500" /> Домашнее практическое задание
             </h2>
 
-            <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl p-5 border border-amber-100">
-              <h3 className="font-bold text-amber-800 mb-4">{lesson.homework.title}</h3>
-              <div className="space-y-4">
+            <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-xl p-5 md:p-6 border-2 border-amber-200 dark:border-amber-800">
+              <h3 className="font-bold text-amber-800 dark:text-amber-200 mb-4 text-lg md:text-xl">{lesson.homework.title}</h3>
+              <div className="space-y-5">
                 {lesson.homework.steps.map((step, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-amber-200 text-amber-800 flex items-center justify-center font-bold text-sm">
+                  <div key={i} className="flex items-start gap-3 bg-white dark:bg-gray-800 rounded-lg p-4 border border-amber-200 dark:border-amber-700">
+                    <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 text-white flex items-center justify-center font-bold text-base md:text-lg shadow-md">
                       {i + 1}
                     </div>
                     <div className="flex-grow">
-                      <p className="font-bold text-gray-800 text-sm">
+                      <p className="font-bold text-gray-800 dark:text-gray-100 text-base md:text-lg mb-2">
                         {step.title}
-                        {step.duration && <span className="text-amber-600 font-normal ml-2">({step.duration})</span>}
+                        {step.duration && <span className="text-amber-600 dark:text-amber-400 font-normal ml-2 text-sm md:text-base">({step.duration})</span>}
                       </p>
-                      <p className="text-gray-600 text-sm mt-1">{step.description}</p>
+                      <p className="text-gray-700 dark:text-gray-300 text-sm md:text-base leading-relaxed whitespace-pre-line">{step.description}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="bg-purple-50 rounded-xl p-5 border border-purple-100">
-              <h3 className="font-bold text-purple-800 mb-2">📝 Практика проверки интуиции Словом</h3>
-              <p className="text-purple-700 text-sm leading-relaxed">
+            <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl p-5 md:p-6 border-2 border-purple-200 dark:border-purple-800">
+              <h3 className="font-bold text-purple-800 dark:text-purple-200 mb-3 text-lg md:text-xl flex items-center gap-2">
+                <span className="text-2xl">📝</span> Практика проверки интуиции Словом
+              </h3>
+              <p className="text-purple-700 dark:text-purple-200 text-sm md:text-base leading-relaxed">
                 В течение недели при возникновении внутренних побуждений не спешите действовать импульсивно и не отвергайте их сразу. Запишите их и проверьте обновлённым разумом на соответствие Библии.
               </p>
             </div>
