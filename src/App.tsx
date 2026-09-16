@@ -16,6 +16,11 @@ import CommunityPage from './pages/CommunityPage';
 import BlogPage from './pages/BlogPage';
 import BlogPostPage from './pages/BlogPostPage';
 import VideosPage from './pages/VideosPage';
+import AdminLoginPage from './pages/AdminLoginPage';
+import AdminLayout from './pages/AdminLayout';
+import AdminDashboardPage from './pages/AdminDashboardPage';
+import AdminStudentsPage from './pages/AdminStudentsPage';
+import AdminMessagesPage from './pages/AdminMessagesPage';
 
 function App() {
   return (
@@ -37,6 +42,12 @@ function App() {
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/videos" element={<VideosPage />} />
+            
+            {/* Админ-панель */}
+            <Route path="/admin" element={<AdminLoginPage />} />
+            <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
+            <Route path="/admin/students" element={<AdminStudentsPage />} />
+            <Route path="/admin/messages" element={<AdminMessagesPage />} />
           </Routes>
         </main>
         <Footer />
