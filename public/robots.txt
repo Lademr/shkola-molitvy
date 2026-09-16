@@ -1,0 +1,21 @@
+# robots.txt для shkola-molitvy.ru
+# Школа Молитвы — Интерактивное обучение молитвенной жизни
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+# Разрешаем все основные поисковые системы
+User-agent: Googlebot
+Allow: /
+
+User-agent: Yandex
+Allow: /
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://shkola-molitvy.ru/sitemap.xml
+
+# Хост (для Яндекса)
+Host: shkola-molitvy.ru
