@@ -76,7 +76,7 @@ function Navigation() {
 
           {/* Desktop nav */}
           <div className="hidden lg:flex items-center gap-1">
-            {navItems.slice(0, 7).map(item => (
+            {navItems.map(item => (
               <Link
                 key={item.path}
                 to={item.path}
