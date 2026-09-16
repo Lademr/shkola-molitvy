@@ -10,6 +10,12 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  /* Dark mode base */
+  .dark body {
+    background-color: #111827;
+    color: #f3f4f6;
+  }
 }
 
 @layer utilities {
@@ -37,4 +43,19 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #b8864e;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #4b5563;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
+/* Dark mode transitions */
+* {
+  transition-property: background-color, border-color, color;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
 }
