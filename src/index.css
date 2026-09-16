@@ -3,12 +3,19 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    font-size: 16px;
   }
   
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    line-height: 1.6;
+  }
+  
+  /* Обеспечение минимального размера для интерактивных элементов */
+  button, a, input, select, textarea {
+    min-height: 44px;
   }
 
   /* Dark mode base */

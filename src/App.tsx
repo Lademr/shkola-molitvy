@@ -24,6 +24,9 @@ const AdminDashboardPage = lazy(() => import('./pages/AdminDashboardPage'));
 const AdminStudentsPage = lazy(() => import('./pages/AdminStudentsPage'));
 const AdminMessagesPage = lazy(() => import('./pages/AdminMessagesPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
+const TermsOfUsePage = lazy(() => import('./pages/TermsOfUsePage'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
 
 // Компонент загрузки
 const LoadingSpinner = () => (
@@ -63,6 +66,11 @@ function App() {
             <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
             <Route path="/admin/students" element={<AdminStudentsPage />} />
             <Route path="/admin/messages" element={<AdminMessagesPage />} />
+            
+            {/* Юридические страницы */}
+            <Route path="/privacy" element={<PrivacyPolicyPage />} />
+            <Route path="/terms" element={<TermsOfUsePage />} />
+            <Route path="/about" element={<AboutPage />} />
             
             {/* 404 страница */}
             <Route path="*" element={<NotFoundPage />} />
@@ -250,6 +258,17 @@ function Footer() {
           <p className="text-gray-400 dark:text-gray-500 text-xs mt-2">
             «Непрестанно молитесь» — 1 Фессалоникийцам 5:17
           </p>
+          <div className="flex flex-wrap justify-center gap-4 mt-4 text-xs">
+            <Link to="/about" className="text-gray-500 dark:text-gray-400 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+              О проекте
+            </Link>
+            <Link to="/privacy" className="text-gray-500 dark:text-gray-400 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+              Политика конфиденциальности
+            </Link>
+            <Link to="/terms" className="text-gray-500 dark:text-gray-400 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+              Условия использования
+            </Link>
+          </div>
           <p className="text-gray-400 dark:text-gray-500 text-xs mt-1">
             © {new Date().getFullYear()} shkola-molitvy.ru — Все материалы бесплатны
           </p>
