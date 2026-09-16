@@ -74,7 +74,7 @@ export default function ProfilePage() {
     );
   }
 
-  const totalLessons = 5; // Общее количество уроков
+  const totalLessons = 6; // Общее количество уроков
   const progress = Math.round((user!.completedLessons.length / totalLessons) * 100);
   const avgScore = Object.values(user!.quizScores).length > 0
     ? Math.round(Object.values(user!.quizScores).reduce((a, b) => a + b, 0) / Object.values(user!.quizScores).length)
