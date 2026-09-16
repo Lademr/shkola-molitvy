@@ -1,15 +1,17 @@
 import { Link } from 'react-router-dom';
-import { BookOpen, Heart, CheckSquare, Bell, MessageCircle, Sparkles, ArrowRight } from 'lucide-react';
+import { BookOpen, Heart, CheckSquare, Bell, MessageCircle, Sparkles, ArrowRight, Scroll } from 'lucide-react';
 import { getDailyVerse, getDailyMotivation } from '../data/scriptures';
+import { lessons } from '../data/lessons';
 
 export default function HomePage() {
   const dailyVerse = getDailyVerse();
   const motivation = getDailyMotivation();
+  const latestLesson = lessons[0];
 
   const sections = [
-    { path: '/lessons', title: 'Уроки', description: 'Пошаговое обучение молитвенной жизни', icon: BookOpen, color: 'from-amber-400 to-orange-500' },
+    { path: '/lessons', title: 'Уроки', description: 'Глубокое обучение молитвенной жизни', icon: BookOpen, color: 'from-amber-400 to-orange-500' },
     { path: '/prayers', title: 'Молитвы', description: 'Примеры молитв на каждый день', icon: Heart, color: 'from-rose-400 to-pink-500' },
-    { path: '/scripture', title: 'Писание', description: 'Тексты и глубокие разборы', icon: BookOpen, color: 'from-sky-400 to-blue-500' },
+    { path: '/scripture', title: 'Писание', description: 'Тексты и глубокие разборы', icon: Scroll, color: 'from-sky-400 to-blue-500' },
     { path: '/quiz', title: 'Тесты', description: 'Проверь свои знания', icon: CheckSquare, color: 'from-emerald-400 to-green-500' },
     { path: '/reminders', title: 'Напоминания', description: 'Настрой время для молитвы', icon: Bell, color: 'from-purple-400 to-violet-500' },
     { path: '/feedback', title: 'Обратная связь', description: 'Связь с наставником и братьями', icon: MessageCircle, color: 'from-teal-400 to-cyan-500' },
@@ -27,7 +29,7 @@ export default function HomePage() {
           Углуби свою <span className="text-amber-600">молитвенную жизнь</span>
         </h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
-          Интерактивная платформа для тех, кто хочет развивать глубокие отношения с Богом через молитву, изучение Слова и духовный рост.
+          Интерактивная платформа для тех, кто хочет развивать глубокие отношения с Богом через водительство Духом, изучение Слова и духовный рост.
         </p>
       </div>
 
@@ -47,6 +49,25 @@ export default function HomePage() {
       <div className="bg-white rounded-xl p-6 shadow-sm border border-amber-100 text-center">
         <p className="text-lg text-gray-700 italic">{motivation}</p>
       </div>
+
+      {/* Latest Lesson Highlight */}
+      {latestLesson && (
+        <div className="bg-gradient-to-br from-purple-50 via-pink-50 to-amber-50 rounded-2xl p-6 md:p-8 border border-purple-100">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="bg-purple-500 text-white px-3 py-1 rounded-full text-xs font-bold">НОВЫЙ УРОК</span>
+            <span className="text-purple-600 text-sm font-medium">Урок {latestLesson.id}</span>
+          </div>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">{latestLesson.title}</h2>
+          <p className="text-amber-600 font-medium italic mb-3">{latestLesson.subtitle}</p>
+          <p className="text-gray-600 mb-5 line-clamp-2">{latestLesson.description}</p>
+          <Link
+            to="/lessons"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-3 rounded-xl font-medium hover:from-amber-600 hover:to-orange-600 transition-all shadow-sm"
+          >
+            Начать урок <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      )}
 
       {/* Sections Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -78,17 +99,17 @@ export default function HomePage() {
           <div className="bg-white rounded-lg p-4 shadow-sm">
             <div className="text-2xl mb-2">📖</div>
             <h3 className="font-bold text-gray-800 mb-1">Шаг 1: Уроки</h3>
-            <p className="text-gray-500 text-sm">Начни с урока «Основы молитвы» и изучай по одному уроку в день</p>
+            <p className="text-gray-500 text-sm">Начни с Урока 1 «Единственный Учитель» — пойми, как Дух Божий ведёт тебя</p>
           </div>
           <div className="bg-white rounded-lg p-4 shadow-sm">
             <div className="text-2xl mb-2">🙏</div>
             <h3 className="font-bold text-gray-800 mb-1">Шаг 2: Практика</h3>
-            <p className="text-gray-500 text-sm">Выбери молитву из коллекции и молись ею каждый день</p>
+            <p className="text-gray-500 text-sm">Выполняй домашние задания и молись по структуре P-R-A-Y каждый день</p>
           </div>
           <div className="bg-white rounded-lg p-4 shadow-sm">
             <div className="text-2xl mb-2">📝</div>
             <h3 className="font-bold text-gray-800 mb-1">Шаг 3: Рост</h3>
-            <p className="text-gray-500 text-sm">Проходи тесты и делись опытом с другими учениками</p>
+            <p className="text-gray-500 text-sm">Проходи тесты, изучай разбор Писания и делись опытом с другими</p>
           </div>
         </div>
       </div>

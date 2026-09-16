@@ -66,7 +66,8 @@ export default function QuizPage() {
                 <Trophy className="w-6 h-6" />
               </div>
               <h3 className="font-bold text-gray-800 text-lg">{quiz.title}</h3>
-              <p className="text-gray-500 text-sm mt-1">{quiz.questions.length} вопросов</p>
+              <p className="text-gray-500 text-sm mt-1">{quiz.description}</p>
+              <p className="text-emerald-600 text-xs mt-1 font-medium">{quiz.questions.length} вопросов</p>
               <span className="inline-flex items-center gap-1 text-emerald-600 text-sm font-medium mt-3 group-hover:gap-2 transition-all">
                 Начать тест <ArrowRight className="w-4 h-4" />
               </span>
