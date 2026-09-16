@@ -1,33 +1,48 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { BookOpen, Heart, MessageCircle, CheckSquare, Bell, Sparkles, Home, Menu, X, User, Moon, Sun, BookMarked, Video, Award, FileText } from 'lucide-react';
 import { useTheme } from './contexts/ThemeContext';
 import { useUser } from './contexts/UserContext';
-import HomePage from './pages/HomePage';
-import LessonsPage from './pages/LessonsPage';
-import PrayersPage from './pages/PrayersPage';
-import ScripturePage from './pages/ScripturePage';
-import QuizPage from './pages/QuizPage';
-import RemindersPage from './pages/RemindersPage';
-import FeedbackPage from './pages/FeedbackPage';
-import ProfilePage from './pages/ProfilePage';
-import DiaryPage from './pages/DiaryPage';
-import CommunityPage from './pages/CommunityPage';
-import BlogPage from './pages/BlogPage';
-import BlogPostPage from './pages/BlogPostPage';
-import VideosPage from './pages/VideosPage';
-import AdminLoginPage from './pages/AdminLoginPage';
-import AdminLayout from './pages/AdminLayout';
-import AdminDashboardPage from './pages/AdminDashboardPage';
-import AdminStudentsPage from './pages/AdminStudentsPage';
-import AdminMessagesPage from './pages/AdminMessagesPage';
+import ScrollToTop from './components/ScrollToTop';
+
+// Lazy loading страниц для улучшения производительности
+const HomePage = lazy(() => import('./pages/HomePage'));
+const LessonsPage = lazy(() => import('./pages/LessonsPage'));
+const PrayersPage = lazy(() => import('./pages/PrayersPage'));
+const ScripturePage = lazy(() => import('./pages/ScripturePage'));
+const QuizPage = lazy(() => import('./pages/QuizPage'));
+const RemindersPage = lazy(() => import('./pages/RemindersPage'));
+const FeedbackPage = lazy(() => import('./pages/FeedbackPage'));
+const ProfilePage = lazy(() => import('./pages/ProfilePage'));
+const DiaryPage = lazy(() => import('./pages/DiaryPage'));
+const CommunityPage = lazy(() => import('./pages/CommunityPage'));
+const BlogPage = lazy(() => import('./pages/BlogPage'));
+const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
+const VideosPage = lazy(() => import('./pages/VideosPage'));
+const AdminLoginPage = lazy(() => import('./pages/AdminLoginPage'));
+const AdminDashboardPage = lazy(() => import('./pages/AdminDashboardPage'));
+const AdminStudentsPage = lazy(() => import('./pages/AdminStudentsPage'));
+const AdminMessagesPage = lazy(() => import('./pages/AdminMessagesPage'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
+
+// Компонент загрузки
+const LoadingSpinner = () => (
+  <div className="min-h-[50vh] flex items-center justify-center">
+    <div className="text-center">
+      <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-amber-500 mb-4"></div>
+      <p className="text-gray-600 dark:text-gray-400">Загрузка...</p>
+    </div>
+  </div>
+);
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-sky-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors">
         <Navigation />
         <main className="max-w-6xl mx-auto px-4 py-8">
+          <Suspense fallback={<LoadingSpinner />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/lessons" element={<LessonsPage />} />
@@ -48,7 +63,11 @@ function App() {
             <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
             <Route path="/admin/students" element={<AdminStudentsPage />} />
             <Route path="/admin/messages" element={<AdminMessagesPage />} />
+            
+            {/* 404 страница */}
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
+          </Suspense>
         </main>
         <Footer />
       </div>

@@ -1,18 +1,30 @@
 import { useState } from 'react';
 import { BookOpen, Clock, ArrowLeft, CheckCircle2, ChevronRight, Scroll, Lightbulb, Target, Pencil, Sparkles, ArrowRight, CheckSquare, XCircle } from 'lucide-react';
 import { lessons, Lesson } from '../data/lessons';
+import { useUser } from '../contexts/UserContext';
 
 export default function LessonsPage() {
+  const { user, isLoggedIn, completeLesson } = useUser();
   const [selectedLesson, setSelectedLesson] = useState<Lesson | null>(null);
-  const [completedLessons, setCompletedLessons] = useState<number[]>(() => {
+  
+  // Используем данные из UserContext если пользователь авторизован, иначе localStorage
+  const [localCompletedLessons, setLocalCompletedLessons] = useState<number[]>(() => {
     const saved = localStorage.getItem('completedLessons');
     return saved ? JSON.parse(saved) : [];
   });
 
+  const completedLessons = isLoggedIn && user ? user.completedLessons : localCompletedLessons;
+
   const markComplete = (id: number) => {
-    const updated = [...new Set([...completedLessons, id])];
-    setCompletedLessons(updated);
-    localStorage.setItem('completedLessons', JSON.stringify(updated));
+    if (isLoggedIn) {
+      // Сохраняем в UserContext для авторизованных пользователей
+      completeLesson(id);
+    } else {
+      // Сохраняем в localStorage для неавторизованных
+      const updated = [...new Set([...localCompletedLessons, id])];
+      setLocalCompletedLessons(updated);
+      localStorage.setItem('completedLessons', JSON.stringify(updated));
+    }
   };
 
   if (selectedLesson) {

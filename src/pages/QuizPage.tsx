@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { CheckCircle2, XCircle, RotateCcw, Trophy, ArrowRight } from 'lucide-react';
 import { quizzes } from '../data/quizzes';
+import { useUser } from '../contexts/UserContext';
 
 export default function QuizPage() {
+  const { isLoggedIn, saveQuizScore } = useUser();
   const [selectedQuiz, setSelectedQuiz] = useState<number | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -34,6 +36,11 @@ export default function QuizPage() {
     const quiz = quizzes[selectedQuiz!];
     if (currentQuestion + 1 >= quiz.questions.length) {
       setQuizComplete(true);
+      // Сохраняем результат теста в UserContext если пользователь авторизован
+      if (isLoggedIn && selectedQuiz !== null) {
+        const finalScore = score + (selectedAnswer === quiz.questions[currentQuestion].correctAnswer ? 1 : 0);
+        saveQuizScore(selectedQuiz + 1, finalScore, quiz.questions.length);
+      }
     } else {
       setCurrentQuestion(c => c + 1);
       setSelectedAnswer(null);
