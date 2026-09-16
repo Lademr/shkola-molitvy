@@ -74,12 +74,12 @@ export default function FeedbackPage() {
 
   return (
     <div className="max-w-3xl mx-auto">
-      <div className="text-center mb-10">
+      <header className="text-center mb-10">
         <h1 className="text-3xl font-bold text-gray-800 mb-3">💬 Обратная связь</h1>
         <p className="text-gray-500 max-w-lg mx-auto">
           Делитесь опытом, задавайте вопросы, оставляйте отзывы. Мы — сообщество, растущее вместе.
         </p>
-      </div>
+      </header>
 
       <div className="grid md:grid-cols-2 gap-8">
         {/* Contact Form */}

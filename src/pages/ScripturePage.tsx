@@ -156,12 +156,12 @@ export default function ScripturePage() {
 
   return (
     <div>
-      <div className="text-center mb-10">
+      <header className="text-center mb-10">
         <h1 className="text-3xl font-bold text-gray-800 mb-3">📖 Изучение Писания</h1>
         <p className="text-gray-500 max-w-lg mx-auto">
           Глубокие разборы ключевых текстов Библии с контекстом, анализом и практическим применением
         </p>
-      </div>
+      </header>
 
       {/* Search */}
       <div className="max-w-md mx-auto mb-8">

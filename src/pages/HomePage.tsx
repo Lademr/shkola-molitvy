@@ -20,7 +20,7 @@ export default function HomePage() {
   return (
     <div className="space-y-12">
       {/* Hero Section */}
-      <div className="text-center py-12 px-4">
+      <header className="text-center py-12 px-4">
         <div className="inline-flex items-center gap-2 bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
           <Sparkles className="w-4 h-4" />
           Добро пожаловать!
@@ -31,7 +31,7 @@ export default function HomePage() {
         <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
           Интерактивная платформа для тех, кто хочет развивать глубокие отношения с Богом через водительство Духом, изучение Слова и духовный рост.
         </p>
-      </div>
+      </header>
 
       {/* Daily Verse */}
       <div className="bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl p-8 text-white shadow-lg">

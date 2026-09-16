@@ -70,12 +70,12 @@ export default function PrayersPage() {
 
   return (
     <div>
-      <div className="text-center mb-10">
+      <header className="text-center mb-10">
         <h1 className="text-3xl font-bold text-gray-800 mb-3">🙏 Коллекция молитв</h1>
         <p className="text-gray-500 max-w-lg mx-auto">
           Молитвы на каждый день и для особых случаев. Выберите категорию или молитесь любой из них.
         </p>
-      </div>
+      </header>
 
       {/* Categories */}
       <div className="flex flex-wrap gap-2 justify-center mb-8">

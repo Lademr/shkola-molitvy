@@ -62,12 +62,12 @@ export default function RemindersPage() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <div className="text-center mb-10">
+      <header className="text-center mb-10">
         <h1 className="text-3xl font-bold text-gray-800 mb-3">⏰ Напоминания о молитве</h1>
         <p className="text-gray-500 max-w-lg mx-auto">
           Настройте регулярные напоминания для молитвы. Дисциплина молитвы — ключ к духовному росту.
         </p>
-      </div>
+      </header>
 
       {/* Tips */}
       <div className="bg-purple-50 rounded-xl p-5 border border-purple-100 mb-8">

@@ -110,14 +110,58 @@ function Navigation() {
 
 function Footer() {
   return (
-    <footer className="bg-white/60 border-t border-amber-100 mt-16">
-      <div className="max-w-6xl mx-auto px-4 py-8 text-center">
-        <p className="text-gray-500 text-sm">
-          ✝️ Молитвенная жизнь — Интерактивное обучение для христиан
-        </p>
-        <p className="text-gray-400 text-xs mt-2">
-          «Непрестанно молитесь» — 1 Фессалоникийцам 5:17
-        </p>
+    <footer className="bg-white/60 border-t border-amber-100 mt-16" role="contentinfo">
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        <div className="grid md:grid-cols-3 gap-8 mb-8">
+          {/* About */}
+          <div>
+            <h3 className="font-bold text-gray-800 mb-3 flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-amber-500" />
+              Школа Молитвы
+            </h3>
+            <p className="text-gray-500 text-sm leading-relaxed">
+              Бесплатный интерактивный курс для христиан, направленный на развитие глубокой молитвенной жизни и отношений с Богом через водительство Святым Духом.
+            </p>
+          </div>
+
+          {/* Navigation */}
+          <div>
+            <h3 className="font-bold text-gray-800 mb-3">Разделы</h3>
+            <nav aria-label="Навигация в подвале">
+              <ul className="space-y-2 text-sm">
+                <li><Link to="/lessons" className="text-gray-500 hover:text-amber-600 transition-colors">Уроки молитвы</Link></li>
+                <li><Link to="/prayers" className="text-gray-500 hover:text-amber-600 transition-colors">Коллекция молитв</Link></li>
+                <li><Link to="/scripture" className="text-gray-500 hover:text-amber-600 transition-colors">Разбор Писания</Link></li>
+                <li><Link to="/quiz" className="text-gray-500 hover:text-amber-600 transition-colors">Тесты знаний</Link></li>
+                <li><Link to="/reminders" className="text-gray-500 hover:text-amber-600 transition-colors">Напоминания</Link></li>
+              </ul>
+            </nav>
+          </div>
+
+          {/* Topics */}
+          <div>
+            <h3 className="font-bold text-gray-800 mb-3">Темы</h3>
+            <ul className="space-y-2 text-sm text-gray-500">
+              <li>Водительство Святым Духом</li>
+              <li>Интуиция духа и совесть</li>
+              <li>Обновление разума</li>
+              <li>Молитва по Слову</li>
+              <li>Ходатайственная молитва</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="border-t border-amber-100 pt-6 text-center">
+          <p className="text-gray-500 text-sm">
+            ✝️ Школа Молитвы — Интерактивное обучение молитвенной жизни для христиан
+          </p>
+          <p className="text-gray-400 text-xs mt-2">
+            «Непрестанно молитесь» — 1 Фессалоникийцам 5:17
+          </p>
+          <p className="text-gray-400 text-xs mt-1">
+            © {new Date().getFullYear()} shkola-molitvy.ru — Все материалы бесплатны
+          </p>
+        </div>
       </div>
     </footer>
   );

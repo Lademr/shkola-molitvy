@@ -48,12 +48,12 @@ export default function QuizPage() {
   if (selectedQuiz === null) {
     return (
       <div>
-        <div className="text-center mb-10">
+        <header className="text-center mb-10">
           <h1 className="text-3xl font-bold text-gray-800 mb-3">✅ Тесты знаний</h1>
           <p className="text-gray-500 max-w-lg mx-auto">
             Проверьте свои знания о молитвенной жизни и духовном росте
           </p>
-        </div>
+        </header>
 
         <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
           {quizzes.map((quiz, index) => (

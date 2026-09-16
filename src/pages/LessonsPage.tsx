@@ -21,7 +21,7 @@ export default function LessonsPage() {
 
   return (
     <div>
-      <div className="text-center mb-10">
+      <header className="text-center mb-10">
         <h1 className="text-3xl font-bold text-gray-800 mb-3">📖 Уроки молитвенной жизни</h1>
         <p className="text-gray-500 max-w-lg mx-auto">
           Пошаговое обучение, которое поможет вам углубить отношения с Богом через водительство Духом
@@ -29,7 +29,7 @@ export default function LessonsPage() {
         <div className="mt-4 inline-flex items-center gap-2 bg-amber-50 text-amber-700 px-4 py-2 rounded-full text-sm">
           Пройдено: {completedLessons.length} из {lessons.length}
         </div>
-      </div>
+      </header>
 
       <div className="grid gap-4">
         {lessons.map((lesson, index) => (

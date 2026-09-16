@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#ea580c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#dc2626;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Light rays -->
+  <ellipse cx="600" cy="200" rx="400" ry="300" fill="url(#glow)" opacity="0.4"/>
+  
+  <!-- Cross symbol -->
+  <g transform="translate(600, 180)" opacity="0.15">
+    <rect x="-8" y="-80" width="16" height="160" fill="white" rx="4"/>
+    <rect x="-50" y="-30" width="100" height="16" fill="white" rx="4"/>
+  </g>
+  
+  <!-- Dove silhouette -->
+  <g transform="translate(850, 150)" opacity="0.1">
+    <path d="M0,0 Q-20,-30 -40,-20 Q-60,-10 -50,10 Q-40,30 -20,20 Q0,10 0,0 Z" fill="white"/>
+    <path d="M-50,10 Q-70,0 -80,10 Q-70,20 -50,15 Z" fill="white"/>
+  </g>
+  
+  <!-- Main title -->
+  <text x="600" y="320" font-family="Georgia, serif" font-size="72" font-weight="bold" fill="white" text-anchor="middle" filter="url(#shadow)">
+    🙏 Школа Молитвы
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="380" font-family="Arial, sans-serif" font-size="28" fill="rgba(255,255,255,0.9)" text-anchor="middle">
+    Интерактивное обучение молитвенной жизни
+  </text>
+  
+  <!-- Features -->
+  <text x="600" y="440" font-family="Arial, sans-serif" font-size="20" fill="rgba(255,255,255,0.7)" text-anchor="middle">
+    Уроки • Молитвы • Писание • Тесты • Духовный рост
+  </text>
+  
+  <!-- Domain -->
+  <text x="600" y="530" font-family="Arial, sans-serif" font-size="22" fill="rgba(255,255,255,0.8)" text-anchor="middle" font-weight="bold">
+    shkola-molitvy.ru
+  </text>
+  
+  <!-- Bottom decoration -->
+  <rect x="350" y="560" width="500" height="2" fill="rgba(255,255,255,0.3)" rx="1"/>
+</svg>
