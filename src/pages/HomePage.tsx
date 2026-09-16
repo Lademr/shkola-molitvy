@@ -6,7 +6,7 @@ import { lessons } from '../data/lessons';
 export default function HomePage() {
   const dailyVerse = getDailyVerse();
   const motivation = getDailyMotivation();
-  const latestLesson = lessons[0];
+  const latestLesson = lessons[lessons.length - 1];
 
   const sections = [
     { path: '/lessons', title: 'Уроки', description: 'Глубокое обучение молитвенной жизни', icon: BookOpen, color: 'from-amber-400 to-orange-500' },
