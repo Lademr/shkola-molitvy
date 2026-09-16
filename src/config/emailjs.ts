@@ -43,18 +43,18 @@ import emailjs from '@emailjs/browser';
 // ============================================================================
 
 export const EMAILJS_CONFIG = {
-  SERVICE_ID: 'service_w4pnw2a',      // ← Ваш Service ID
-  TEMPLATE_ID: 'YOUR_TEMPLATE_ID',    // ← Вставьте ваш Template ID
-  PUBLIC_KEY: 'YOUR_PUBLIC_KEY',      // ← Вставьте ваш Public Key
-  ADMIN_EMAIL: 'eksinss@gmail.com',   // Email администратора
+  SERVICE_ID: 'service_w4pnw2a',        // Service ID
+  TEMPLATE_ID: 'template_vpzel9r',      // Template ID
+  PUBLIC_KEY: 'uhnbXL5wjDqXVnxdQ3NBG', // Public Key
+  ADMIN_EMAIL: 'eksinss@gmail.com',     // Email администратора
 };
 
 // Функция для проверки, настроен ли EmailJS
 export const isEmailConfigured = (): boolean => {
   return (
-    EMAILJS_CONFIG.SERVICE_ID !== 'YOUR_SERVICE_ID' &&
-    EMAILJS_CONFIG.TEMPLATE_ID !== 'YOUR_TEMPLATE_ID' &&
-    EMAILJS_CONFIG.PUBLIC_KEY !== 'YOUR_PUBLIC_KEY'
+    EMAILJS_CONFIG.SERVICE_ID !== '' &&
+    EMAILJS_CONFIG.TEMPLATE_ID !== '' &&
+    EMAILJS_CONFIG.PUBLIC_KEY !== ''
   );
 };
 
