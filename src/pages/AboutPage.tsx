@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, BookOpen, Users, Target, Heart, Mail, MapPin } from 'lucide-react';
+import { ArrowLeft, BookOpen, Users, Target, Heart, Mail, MapPin, Phone, Building2, ExternalLink } from 'lucide-react';
 
 export default function AboutPage() {
   return (
@@ -126,6 +126,16 @@ export default function AboutPage() {
               <li>Редакторы — специалисты по богословию и библейским языкам</li>
               <li>Техническая команда — разработчики и дизайнеры</li>
             </ul>
+            <div className="mt-4">
+              <Link
+                to="/authors"
+                className="inline-flex items-center gap-2 text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 font-medium"
+              >
+                <Users className="w-4 h-4" />
+                Подробнее об авторах и редакционной коллегии
+                <ExternalLink className="w-3 h-3" />
+              </Link>
+            </div>
           </section>
 
           <section className="mb-8">
@@ -162,21 +172,68 @@ export default function AboutPage() {
 
           <section className="mb-8">
             <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">
-              Контакты
+              Контакты и юридическая информация
             </h2>
+            <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-6 mb-4">
+              <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4 flex items-center gap-2">
+                <Building2 className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+                Организация
+              </h3>
+              <div className="space-y-3">
+                <p className="text-gray-700 dark:text-gray-300">
+                  <strong>Полное наименование:</strong> Местная Религиозная Организация Владикавказская Церковь «Духовное Возрождение» ЕХБ
+                </p>
+                <p className="text-gray-700 dark:text-gray-300 flex items-start gap-2">
+                  <MapPin className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+                  <span>
+                    <strong>Адрес:</strong> 362015, Республика Северная Осетия — Алания, город Владикавказ, тер. снт Учитель, д. 45
+                  </span>
+                </p>
+                <p className="text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                  <Phone className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+                  <strong>Телефон:</strong> <a href="tel:+79188299271" className="text-amber-600 dark:text-amber-400 hover:underline">8 918 829 92 71</a>
+                </p>
+                <p className="text-gray-700 dark:text-gray-300">
+                  <strong>Руководитель:</strong> Пресвитер — Плиев Владимир Бексултанович
+                </p>
+                <p className="text-gray-700 dark:text-gray-300">
+                  <strong>Дополнительная информация:</strong>{' '}
+                  <a
+                    href="https://www.rusprofile.ru/id/1933886"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-amber-600 dark:text-amber-400 hover:underline inline-flex items-center gap-1"
+                  >
+                    RusProfile
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </p>
+              </div>
+            </div>
+
             <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-6">
+              <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4 flex items-center gap-2">
+                <Mail className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+                Электронная почта
+              </h3>
               <div className="space-y-3">
                 <p className="text-gray-700 dark:text-gray-300 flex items-center gap-2">
-                  <Mail className="w-5 h-5 text-amber-600 dark:text-amber-400" />
-                  <strong>Общие вопросы:</strong> <a href="mailto:info@shkola-molitvy.ru" className="text-amber-600 dark:text-amber-400 hover:underline">info@shkola-molitvy.ru</a>
+                  <strong>Общие вопросы:</strong>{' '}
+                  <a href="mailto:info@shkola-molitvy.ru" className="text-amber-600 dark:text-amber-400 hover:underline">
+                    info@shkola-molitvy.ru
+                  </a>
                 </p>
                 <p className="text-gray-700 dark:text-gray-300 flex items-center gap-2">
-                  <Mail className="w-5 h-5 text-amber-600 dark:text-amber-400" />
-                  <strong>Обратная связь:</strong> <a href="mailto:feedback@shkola-molitvy.ru" className="text-amber-600 dark:text-amber-400 hover:underline">feedback@shkola-molitvy.ru</a>
+                  <strong>Обратная связь:</strong>{' '}
+                  <a href="mailto:feedback@shkola-molitvy.ru" className="text-amber-600 dark:text-amber-400 hover:underline">
+                    feedback@shkola-molitvy.ru
+                  </a>
                 </p>
                 <p className="text-gray-700 dark:text-gray-300 flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-amber-600 dark:text-amber-400" />
-                  <strong>Веб-сайт:</strong> <a href="https://shkola-molitvy.ru" className="text-amber-600 dark:text-amber-400 hover:underline">shkola-molitvy.ru</a>
+                  <strong>Веб-сайт:</strong>{' '}
+                  <a href="https://shkola-molitvy.ru" className="text-amber-600 dark:text-amber-400 hover:underline">
+                    shkola-molitvy.ru
+                  </a>
                 </p>
               </div>
             </div>

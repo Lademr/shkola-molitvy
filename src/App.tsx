@@ -27,6 +27,7 @@ const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
 const TermsOfUsePage = lazy(() => import('./pages/TermsOfUsePage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
+const AuthorsPage = lazy(() => import('./pages/AuthorsPage'));
 
 // Компонент загрузки
 const LoadingSpinner = () => (
@@ -71,6 +72,7 @@ function App() {
             <Route path="/privacy" element={<PrivacyPolicyPage />} />
             <Route path="/terms" element={<TermsOfUsePage />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/authors" element={<AuthorsPage />} />
             
             {/* 404 страница */}
             <Route path="*" element={<NotFoundPage />} />
@@ -261,6 +263,9 @@ function Footer() {
           <div className="flex flex-wrap justify-center gap-4 mt-4 text-xs">
             <Link to="/about" className="text-gray-500 dark:text-gray-400 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
               О проекте
+            </Link>
+            <Link to="/authors" className="text-gray-500 dark:text-gray-400 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+              Авторы
             </Link>
             <Link to="/privacy" className="text-gray-500 dark:text-gray-400 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
               Политика конфиденциальности
