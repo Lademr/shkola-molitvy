@@ -149,7 +149,7 @@ export default function FeedbackPage() {
                       <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
                       <div>
                         <p className="font-medium">Ошибка отправки</p>
-                        <p className="text-xs mt-1">Не удалось отправить сообщение. Пожалуйста, попробуйте позже или свяжитесь с нами напрямую: vcdv@mail.ru</p>
+                        <p className="text-xs mt-1">Не удалось отправить сообщение. Пожалуйста, попробуйте позже или свяжитесь с нами напрямую: eksinss@gmail.com</p>
                       </div>
                     </div>
                   </div>

@@ -43,10 +43,10 @@ import emailjs from '@emailjs/browser';
 // ============================================================================
 
 export const EMAILJS_CONFIG = {
-  SERVICE_ID: 'YOUR_SERVICE_ID',      // ← Вставьте ваш Service ID
+  SERVICE_ID: 'service_w4pnw2a',      // ← Ваш Service ID
   TEMPLATE_ID: 'YOUR_TEMPLATE_ID',    // ← Вставьте ваш Template ID
   PUBLIC_KEY: 'YOUR_PUBLIC_KEY',      // ← Вставьте ваш Public Key
-  ADMIN_EMAIL: 'vcdv@mail.ru',        // Email администратора
+  ADMIN_EMAIL: 'eksinss@gmail.com',   // Email администратора
 };
 
 // Функция для проверки, настроен ли EmailJS

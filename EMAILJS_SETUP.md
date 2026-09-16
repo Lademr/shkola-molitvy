@@ -6,7 +6,8 @@
 - ✅ Создан файл конфигурации `src/config/emailjs.ts`
 - ✅ Обновлена форма обратной связи
 - ✅ Добавлена обработка ошибок и статусов отправки
-- ✅ Email администратора: **vcdv@mail.ru**
+- ✅ Email администратора: **eksinss@gmail.com**
+- ✅ Service ID: **service_w4pnw2a**
 
 ---
 
@@ -25,9 +26,9 @@
 
 1. После входа перейдите в раздел **"Email Services"** (левое меню)
 2. Нажмите **"Add New Service"**
-3. Выберите **"Mail.ru"** (так как ваш email vcdv@mail.ru)
+3. Выберите **"Gmail"** (так как ваш email eksinss@gmail.com)
 4. Нажмите **"Connect Account"**
-5. Войдите в ваш аккаунт Mail.ru и разрешите доступ
+5. Войдите в ваш аккаунт Gmail и разрешите доступ
 6. После подключения вы увидите страницу с параметрами:
    - **Service ID** — скопируйте его (например: `service_abc123xyz`)
    - **Service Name** — можно оставить по умолчанию
@@ -110,10 +111,10 @@
 
 ```typescript
 export const EMAILJS_CONFIG = {
-  SERVICE_ID: 'service_abc123xyz',      // ← Ваш Service ID
-  TEMPLATE_ID: 'template_xyz789abc',    // ← Ваш Template ID
-  PUBLIC_KEY: 'abcDEF123ghiJKL456',     // ← Ваш Public Key
-  ADMIN_EMAIL: 'vcdv@mail.ru',          // Уже указан правильно
+  SERVICE_ID: 'service_w4pnw2a',        // ← Уже указан ваш Service ID
+  TEMPLATE_ID: 'template_xyz789abc',    // ← Вставьте ваш Template ID
+  PUBLIC_KEY: 'abcDEF123ghiJKL456',     // ← Вставьте ваш Public Key
+  ADMIN_EMAIL: 'eksinss@gmail.com',     // ← Уже указан правильно
 };
 ```
 
@@ -138,7 +139,7 @@ npm run build
    - Email: test@example.com
    - Сообщение: Это тестовое сообщение
 4. Нажмите **"Отправить"**
-5. Проверьте почту **vcdv@mail.ru** — должно прийти письмо!
+5. Проверьте почту **eksinss@gmail.com** — должно прийти письмо!
 
 ---
 
@@ -245,8 +246,8 @@ npm run build
 - [ ] Вставил все ключи в `src/config/emailjs.ts`
 - [ ] Пересобрал проект (`npm run build`)
 - [ ] Протестировал форму обратной связи
-- [ ] Получил тестовое письмо на vcdv@mail.ru
+- [ ] Получил тестовое письмо на eksinss@gmail.com
 
 ---
 
-**Готово!** Теперь все сообщения с формы обратной связи будут приходить вам на email vcdv@mail.ru 🎉
+**Готово!** Теперь все сообщения с формы обратной связи будут приходить вам на email eksinss@gmail.com 🎉
