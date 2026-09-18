@@ -238,7 +238,7 @@ function LessonDetail({ lesson, onBack, onComplete, isCompleted }: { lesson: Les
       </div>
 
       {/* Tab Content */}
-      <div id="tab-content" className="bg-white rounded-2xl shadow-sm border-2 border-gray-200 dark:border-gray-700 p-4 md:p-8">
+      <div id="tab-content" className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border-2 border-gray-200 dark:border-gray-700 p-4 md:p-8">
         {activeTab === 'overview' && (
           <div className="space-y-8">
             <div id="main-thought" className="pb-6 border-b-2 border-gray-100 dark:border-gray-700">
@@ -367,14 +367,14 @@ function LessonDetail({ lesson, onBack, onComplete, isCompleted }: { lesson: Les
                   {q.options.map((opt, oIndex) => {
                     const isSelected = quizAnswers[qIndex] === oIndex;
                     const isCorrect = oIndex === q.correctAnswer;
-                    let style = 'border-gray-200 hover:border-amber-200 bg-white';
+                    let style = 'border-gray-200 dark:border-gray-600 hover:border-amber-200 dark:hover:border-amber-600 bg-white dark:bg-gray-700';
                     
                     if (quizSubmitted) {
-                      if (isCorrect) style = 'border-green-400 bg-green-50';
-                      else if (isSelected && !isCorrect) style = 'border-red-400 bg-red-50';
-                      else style = 'border-gray-200 bg-white opacity-60';
+                      if (isCorrect) style = 'border-green-400 dark:border-green-600 bg-green-50 dark:bg-green-900/30';
+                      else if (isSelected && !isCorrect) style = 'border-red-400 dark:border-red-600 bg-red-50 dark:bg-red-900/30';
+                      else style = 'border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 opacity-60';
                     } else if (isSelected) {
-                      style = 'border-amber-400 bg-amber-50';
+                      style = 'border-amber-400 dark:border-amber-600 bg-amber-50 dark:bg-amber-900/30';
                     }
 
                     return (
@@ -389,14 +389,14 @@ function LessonDetail({ lesson, onBack, onComplete, isCompleted }: { lesson: Les
                         className={`w-full text-left p-3 rounded-lg border-2 transition-all flex items-center gap-3 ${style}`}
                       >
                         <span className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
-                          quizSubmitted && isCorrect ? 'bg-green-200 text-green-800' :
-                          quizSubmitted && isSelected && !isCorrect ? 'bg-red-200 text-red-800' :
-                          isSelected ? 'bg-amber-200 text-amber-800' :
-                          'bg-gray-100 text-gray-600'
+                          quizSubmitted && isCorrect ? 'bg-green-200 dark:bg-green-800 text-green-800 dark:text-green-100' :
+                          quizSubmitted && isSelected && !isCorrect ? 'bg-red-200 dark:bg-red-800 text-red-800 dark:text-red-100' :
+                          isSelected ? 'bg-amber-200 dark:bg-amber-800 text-amber-800 dark:text-amber-100' :
+                          'bg-gray-100 dark:bg-gray-600 text-gray-600 dark:text-gray-300'
                         }`}>
                           {String.fromCharCode(65 + oIndex)}
                         </span>
-                        <span className="text-sm text-gray-700">{opt}</span>
+                        <span className="text-sm text-gray-700 dark:text-gray-200">{opt}</span>
                         {quizSubmitted && isCorrect && <CheckCircle2 className="w-4 h-4 text-green-500 ml-auto flex-shrink-0" />}
                         {quizSubmitted && isSelected && !isCorrect && <XCircle className="w-4 h-4 text-red-500 ml-auto flex-shrink-0" />}
                       </button>
@@ -404,8 +404,8 @@ function LessonDetail({ lesson, onBack, onComplete, isCompleted }: { lesson: Les
                   })}
                 </div>
                 {quizSubmitted && (
-                  <div className="mt-3 bg-sky-50 rounded-lg p-3 border border-sky-100">
-                    <p className="text-sky-800 text-sm"><strong>Пояснение:</strong> {q.explanation}</p>
+                  <div className="mt-3 bg-sky-50 dark:bg-sky-900/30 rounded-lg p-3 border border-sky-100 dark:border-sky-800">
+                    <p className="text-sky-800 dark:text-sky-200 text-sm"><strong>Пояснение:</strong> {q.explanation}</p>
                   </div>
                 )}
               </div>
@@ -420,16 +420,16 @@ function LessonDetail({ lesson, onBack, onComplete, isCompleted }: { lesson: Les
                 Проверить ответы
               </button>
             ) : (
-              <div className="bg-gradient-to-r from-emerald-50 to-green-50 rounded-xl p-5 border border-emerald-200 text-center">
-                <p className="text-2xl font-bold text-emerald-700 mb-1">{quizScore} из {lesson.quizQuestions.length}</p>
-                <p className="text-emerald-600 text-sm">
+              <div className="bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-900/30 dark:to-green-900/30 rounded-xl p-5 border border-emerald-200 dark:border-emerald-800 text-center">
+                <p className="text-2xl font-bold text-emerald-700 dark:text-emerald-300 mb-1">{quizScore} из {lesson.quizQuestions.length}</p>
+                <p className="text-emerald-600 dark:text-emerald-400 text-sm">
                   {quizScore === lesson.quizQuestions.length ? '🎉 Отлично! Все ответы верны!' :
                    quizScore >= lesson.quizQuestions.length / 2 ? '👍 Хороший результат! Перечитайте разбор.' :
                    '📖 Рекомендуем перечитать урок.'}
                 </p>
                 <button
                   onClick={() => { setQuizSubmitted(false); setQuizAnswers(new Array(lesson.quizQuestions.length).fill(null)); }}
-                  className="mt-3 text-emerald-600 text-sm font-medium hover:text-emerald-700"
+                  className="mt-3 text-emerald-600 dark:text-emerald-400 text-sm font-medium hover:text-emerald-700 dark:hover:text-emerald-300"
                 >
                   Пройти заново
                 </button>
@@ -487,7 +487,7 @@ function LessonDetail({ lesson, onBack, onComplete, isCompleted }: { lesson: Les
             Отметить урок как пройденный
           </button>
         ) : (
-          <div className="w-full bg-green-50 text-green-700 py-4 rounded-xl font-medium flex items-center justify-center gap-2 border border-green-200">
+          <div className="w-full bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 py-4 rounded-xl font-medium flex items-center justify-center gap-2 border border-green-200 dark:border-green-800">
             <CheckCircle2 className="w-5 h-5" />
             Урок пройден ✓
           </div>
