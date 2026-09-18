@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { BookOpen, Clock, ArrowLeft, CheckCircle2, ChevronRight, Scroll, Lightbulb, Target, Pencil, Sparkles, ArrowRight, CheckSquare, XCircle } from 'lucide-react';
 import { lessons, Lesson } from '../data/lessons';
 import { useUser } from '../contexts/UserContext';
@@ -8,7 +9,11 @@ import CitationBlock from '../components/CitationBlock';
 
 export default function LessonsPage() {
   const { user, isLoggedIn, completeLesson } = useUser();
-  const [selectedLesson, setSelectedLesson] = useState<Lesson | null>(null);
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  
+  // Находим урок по id из URL
+  const selectedLesson = id ? lessons.find(lesson => lesson.id === parseInt(id)) || null : null;
 
   // Скролл к началу при открытии урока
   useEffect(() => {
@@ -37,8 +42,27 @@ export default function LessonsPage() {
     }
   };
 
+  // Если id есть в URL, но урок не найден - показываем 404
+  if (id && !selectedLesson) {
+    return (
+      <div className="max-w-4xl mx-auto text-center py-12">
+        <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-4">Урок не найден</h1>
+        <p className="text-gray-600 dark:text-gray-400 mb-6">
+          К сожалению, урок с номером {id} не существует или был удалён.
+        </p>
+        <Link
+          to="/lessons"
+          className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-3 rounded-xl font-medium hover:from-amber-600 hover:to-orange-600 transition-all"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Вернуться к списку уроков
+        </Link>
+      </div>
+    );
+  }
+
   if (selectedLesson) {
-    return <LessonDetail lesson={selectedLesson} onBack={() => setSelectedLesson(null)} onComplete={markComplete} isCompleted={completedLessons.includes(selectedLesson.id)} />;
+    return <LessonDetail lesson={selectedLesson} onBack={() => navigate('/lessons')} onComplete={markComplete} isCompleted={completedLessons.includes(selectedLesson.id)} />;
   }
 
   return (
@@ -55,10 +79,10 @@ export default function LessonsPage() {
 
       <div className="grid gap-4">
         {lessons.map((lesson, index) => (
-          <button
+          <Link
             key={lesson.id}
-            onClick={() => setSelectedLesson(lesson)}
-            className={`text-left bg-white rounded-xl p-5 shadow-sm border hover:shadow-md hover:border-amber-200 transition-all group ${
+            to={`/lessons/${lesson.id}`}
+            className={`text-left bg-white rounded-xl p-5 shadow-sm border hover:shadow-md hover:border-amber-200 transition-all group block ${
               completedLessons.includes(lesson.id) ? 'border-green-200 bg-green-50/30' : 'border-gray-100'
             }`}
           >
@@ -93,7 +117,7 @@ export default function LessonsPage() {
               </div>
               <ChevronRight className="w-5 h-5 text-gray-300 group-hover:text-amber-500 transition-colors flex-shrink-0 mt-2" />
             </div>
-          </button>
+          </Link>
         ))}
       </div>
     </div>
@@ -160,9 +184,9 @@ function LessonDetail({ lesson, onBack, onComplete, isCompleted }: { lesson: Les
 
   return (
     <div className="max-w-4xl mx-auto">
-      <button onClick={onBack} className="flex items-center gap-2 text-amber-600 hover:text-amber-700 font-medium mb-6 min-h-[48px]">
+      <Link to="/lessons" className="flex items-center gap-2 text-amber-600 hover:text-amber-700 font-medium mb-6 min-h-[48px]">
         <ArrowLeft className="w-4 h-4" /> Назад к урокам
-      </button>
+      </Link>
 
       {/* Header */}
       <div className="bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 rounded-2xl p-6 md:p-8 text-white shadow-lg mb-6">
