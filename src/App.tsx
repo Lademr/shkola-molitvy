@@ -115,16 +115,14 @@ function Navigation() {
     <nav className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-amber-100 dark:border-gray-700 transition-colors">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-3">
-            {/* Полная версия логотипа для десктопа */}
-            <img src="/logo-full.svg" alt="Школа Молитвы" className="hidden md:block dark:hidden h-12 w-auto" />
-            <img src="/logo-full-dark.svg" alt="Школа Молитвы" className="hidden md:hidden dark:md:block h-12 w-auto" />
-            {/* Короткая версия (только иконка) для мобильных */}
-            <img src="/logo-icon.svg" alt="Школа Молитвы" className="md:hidden w-10 h-10" />
+          <Link to="/" className="flex items-center gap-3 mr-6">
+            {/* Новый простой логотип */}
+            <img src="/logo-simple.svg" alt="Школа Молитвы" className="w-12 h-12" />
+            <span className="font-bold text-xl text-gray-800 dark:text-gray-100 hidden sm:block">Школа Молитвы</span>
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden lg:flex items-center gap-2 ml-4">
+          <div className="hidden lg:flex items-center gap-2 ml-4 flex-1">
             {mainNavItems.map(item => (
               <Link
                 key={item.path}
@@ -140,7 +138,7 @@ function Navigation() {
             ))}
             
             {/* Выпадающее меню "Материалы" */}
-            <div className="relative">
+            <div className="relative flex items-center">
               <button
                 onClick={() => setIsMaterialsOpen(!isMaterialsOpen)}
                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-1 ${
