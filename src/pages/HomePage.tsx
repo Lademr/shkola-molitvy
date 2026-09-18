@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { BookOpen, Heart, CheckSquare, Bell, MessageCircle, Sparkles, ArrowRight, Scroll, FileText } from 'lucide-react';
+import { BookOpen, Heart, CheckSquare, Bell, MessageCircle, Sparkles, ArrowRight, Scroll, FileText, Info } from 'lucide-react';
 import { getDailyVerse, getDailyMotivation } from '../data/scriptures';
 import { lessons } from '../data/lessons';
 
@@ -16,6 +16,7 @@ export default function HomePage() {
     { path: '/quiz', title: 'Тесты', description: 'Проверь свои знания', icon: CheckSquare, color: 'from-emerald-400 to-green-500' },
     { path: '/reminders', title: 'Напоминания', description: 'Настрой время для молитвы', icon: Bell, color: 'from-purple-400 to-violet-500' },
     { path: '/feedback', title: 'Обратная связь', description: 'Связь с наставником и братьями', icon: MessageCircle, color: 'from-teal-400 to-cyan-500' },
+    { path: '/about', title: 'О проекте', description: 'Узнайте больше о нашей школе', icon: Info, color: 'from-gray-400 to-slate-500' },
   ];
 
   return (
@@ -29,7 +30,7 @@ export default function HomePage() {
         <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
           Углуби свою <span className="text-amber-600">молитвенную жизнь</span>
         </h1>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
           Интерактивная платформа для тех, кто хочет развивать глубокие отношения с Богом через водительство Духом, изучение Слова и духовный рост.
         </p>
       </header>
@@ -97,20 +98,20 @@ export default function HomePage() {
       <div className="bg-gradient-to-br from-sky-50 to-blue-50 rounded-2xl p-8 border border-sky-100">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">🌟 С чего начать?</h2>
         <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-white rounded-lg p-4 shadow-sm">
+          <div className="bg-white rounded-lg p-5 shadow-sm">
             <div className="text-2xl mb-2">📖</div>
-            <h3 className="font-bold text-gray-800 mb-1">Шаг 1: Уроки</h3>
-            <p className="text-gray-500 text-sm">Начни с Урока 1 «Единственный Учитель» — пойми, как Дух Божий ведёт тебя</p>
+            <h3 className="font-bold text-gray-800 mb-2">Шаг 1: Уроки</h3>
+            <p className="text-gray-600 text-base">Начни с Урока 1 «Единственный Учитель» — пойми, как Дух Божий ведёт тебя</p>
           </div>
-          <div className="bg-white rounded-lg p-4 shadow-sm">
+          <div className="bg-white rounded-lg p-5 shadow-sm">
             <div className="text-2xl mb-2">🙏</div>
-            <h3 className="font-bold text-gray-800 mb-1">Шаг 2: Практика</h3>
-            <p className="text-gray-500 text-sm">Выполняй домашние задания и молись по структуре P-R-A-Y каждый день</p>
+            <h3 className="font-bold text-gray-800 mb-2">Шаг 2: Практика</h3>
+            <p className="text-gray-600 text-base">Выполняй домашние задания и молись по структуре P-R-A-Y каждый день</p>
           </div>
-          <div className="bg-white rounded-lg p-4 shadow-sm">
+          <div className="bg-white rounded-lg p-5 shadow-sm">
             <div className="text-2xl mb-2">📝</div>
-            <h3 className="font-bold text-gray-800 mb-1">Шаг 3: Рост</h3>
-            <p className="text-gray-500 text-sm">Проходи тесты, изучай разбор Писания и делись опытом с другими</p>
+            <h3 className="font-bold text-gray-800 mb-2">Шаг 3: Рост</h3>
+            <p className="text-gray-600 text-base">Проходи тесты, изучай разбор Писания и делись опытом с другими</p>
           </div>
         </div>
       </div>

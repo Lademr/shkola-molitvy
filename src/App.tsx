@@ -1,6 +1,6 @@
 import { useState, lazy, Suspense } from 'react';
-import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { BookOpen, Heart, MessageCircle, CheckSquare, Bell, Sparkles, Home, Menu, X, User, Moon, Sun, BookMarked, Video, Award, FileText } from 'lucide-react';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BookOpen, Heart, MessageCircle, CheckSquare, Bell, Sparkles, Home, Menu, X, User, Moon, Sun, BookMarked, Video, Award, FileText, ChevronDown } from 'lucide-react';
 import { useTheme } from './contexts/ThemeContext';
 import { useUser } from './contexts/UserContext';
 import ScrollToTop from './components/ScrollToTop';
@@ -89,11 +89,12 @@ function App() {
 
 function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMaterialsOpen, setIsMaterialsOpen] = useState(false);
   const location = useLocation();
   const { theme, toggleTheme } = useTheme();
   const { isLoggedIn, user } = useUser();
 
-  const navItems = [
+  const mainNavItems = [
     { path: '/', label: 'Главная', icon: Home },
     { path: '/lessons', label: 'Уроки', icon: BookOpen },
     { path: '/prayers', label: 'Молитвы', icon: Heart },
@@ -101,24 +102,27 @@ function Navigation() {
     { path: '/quiz', label: 'Тесты', icon: CheckSquare },
     { path: '/diary', label: 'Дневник', icon: FileText },
     { path: '/community', label: 'Сообщество', icon: MessageCircle },
+    { path: '/feedback', label: 'Связь', icon: MessageCircle },
+  ];
+
+  const materialsItems = [
     { path: '/blog', label: 'Блог', icon: FileText },
     { path: '/videos', label: 'Видео', icon: Video },
     { path: '/reminders', label: 'Напоминания', icon: Bell },
-    { path: '/feedback', label: 'Связь', icon: MessageCircle },
   ];
 
   return (
     <nav className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-amber-100 dark:border-gray-700 transition-colors">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-2">
-            <img src="/logo.svg" alt="Школа Молитвы" className="w-10 h-10" />
-            <span className="font-bold text-lg text-gray-800 dark:text-gray-100">Школа Молитвы</span>
+          <Link to="/" className="flex items-center gap-3">
+            <img src="/logo.svg" alt="Школа Молитвы" className="w-14 h-14" />
+            <span className="font-bold text-xl text-gray-800 dark:text-gray-100">Школа Молитвы</span>
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden lg:flex items-center gap-1">
-            {navItems.map(item => (
+          <div className="hidden lg:flex items-center gap-2 ml-4">
+            {mainNavItems.map(item => (
               <Link
                 key={item.path}
                 to={item.path}
@@ -131,6 +135,41 @@ function Navigation() {
                 {item.label}
               </Link>
             ))}
+            
+            {/* Выпадающее меню "Материалы" */}
+            <div className="relative">
+              <button
+                onClick={() => setIsMaterialsOpen(!isMaterialsOpen)}
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-1 ${
+                  materialsItems.some(item => location.pathname === item.path)
+                    ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300'
+                    : 'text-gray-600 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-gray-700 hover:text-amber-700 dark:hover:text-amber-300'
+                  }`}
+              >
+                Материалы
+                <ChevronDown className={`w-4 h-4 transition-transform ${isMaterialsOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {isMaterialsOpen && (
+                <div className="absolute top-full right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50">
+                  {materialsItems.map(item => (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      onClick={() => setIsMaterialsOpen(false)}
+                      className={`flex items-center gap-2 px-4 py-2 text-sm transition-all ${
+                        location.pathname === item.path
+                          ? 'bg-amber-50 dark:bg-amber-900/20 text-amber-800 dark:text-amber-300'
+                          : 'text-gray-600 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-gray-700'
+                      }`}
+                    >
+                      <item.icon className="w-4 h-4" />
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="flex items-center gap-2">
@@ -179,7 +218,7 @@ function Navigation() {
         {/* Mobile nav */}
         {isOpen && (
           <div className="lg:hidden pb-4 border-t border-amber-100 dark:border-gray-700 mt-2 pt-2">
-            {navItems.map(item => {
+            {mainNavItems.map(item => {
               const Icon = item.icon;
               return (
                 <Link
@@ -197,6 +236,44 @@ function Navigation() {
                 </Link>
               );
             })}
+            
+            {/* Мобильное меню "Материалы" */}
+            <div className="px-3 py-2">
+              <button
+                onClick={() => setIsMaterialsOpen(!isMaterialsOpen)}
+                className="flex items-center gap-3 text-sm font-medium text-gray-600 dark:text-gray-300 w-full"
+              >
+                <BookOpen className="w-4 h-4" />
+                Материалы
+                <ChevronDown className={`w-4 h-4 ml-auto transition-transform ${isMaterialsOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {isMaterialsOpen && (
+                <div className="mt-2 ml-7 space-y-1">
+                  {materialsItems.map(item => {
+                    const Icon = item.icon;
+                    return (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        onClick={() => {
+                          setIsOpen(false);
+                          setIsMaterialsOpen(false);
+                        }}
+                        className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                          location.pathname === item.path
+                            ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300'
+                            : 'text-gray-600 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-gray-700'
+                        }`}
+                      >
+                        <Icon className="w-4 h-4" />
+                        {item.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
             <Link
               to="/profile"
               onClick={() => setIsOpen(false)}
@@ -259,8 +336,8 @@ function Footer() {
           <p className="text-gray-500 dark:text-gray-400 text-sm">
             ✝️ Школа Молитвы — Интерактивное обучение молитвенной жизни для христиан
           </p>
-          <p className="text-gray-400 dark:text-gray-500 text-xs mt-2">
-            «Непрестанно молитесь» — 1 Фессалоникийцам 5:17
+          <p className="text-gray-400 dark:text-gray-500 text-xs mt-2 italic">
+            «Непрестанно молитесь» <span className="opacity-60">— 1 Фессалоникийцам 5:17</span>
           </p>
           <div className="flex flex-wrap justify-center gap-4 mt-4 text-xs">
             <Link to="/about" className="text-gray-500 dark:text-gray-400 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
