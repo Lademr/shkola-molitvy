@@ -8,9 +8,63 @@
   </url>
   <url>
     <loc>https://shkola-molitvy.ru/lessons</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-02-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shkola-molitvy.ru/lessons/1/edinstvennyj-uchitel</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://shkola-molitvy.ru/lessons/2/istinnye-poklonniki</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://shkola-molitvy.ru/lessons/3/naedine-s-bogom</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://shkola-molitvy.ru/lessons/4/obrazec-molitvy</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://shkola-molitvy.ru/lessons/5/nesomnennyj-otvet</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://shkola-molitvy.ru/lessons/6/beskonechnoe-otcovstvo</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://shkola-molitvy.ru/lessons/7/vseobemlyushchij-dar</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://shkola-molitvy.ru/lessons/8/smelost-bozhih-detey</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://shkola-molitvy.ru/lessons/9/molitva-o-delatelyah</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://shkola-molitvy.ru/prayers</loc>

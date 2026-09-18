@@ -7,6 +7,7 @@ import FloatingTOC from '../components/FloatingTOC';
 import ReviewerBlock from '../components/ReviewerBlock';
 import CitationBlock from '../components/CitationBlock';
 import SEOHead from '../components/SEOHead';
+import { getLessonUrl } from '../utils/lessonSlugs';
 
 export default function LessonsPage() {
   const { user, isLoggedIn, completeLesson } = useUser();
@@ -69,7 +70,7 @@ export default function LessonsPage() {
           title={`Урок ${selectedLesson.id}: ${selectedLesson.title} — Школа Молитвы`}
           description={selectedLesson.description}
           keywords={`урок ${selectedLesson.id}, ${selectedLesson.title}, молитва, ${selectedLesson.subtitle}, школа молитвы`}
-          canonical={`https://shkola-molitvy.ru/lessons/${selectedLesson.id}`}
+          canonical={`https://shkola-molitvy.ru${getLessonUrl(selectedLesson.id)}`}
         />
         <LessonDetail lesson={selectedLesson} onBack={() => navigate('/lessons')} onComplete={markComplete} isCompleted={completedLessons.includes(selectedLesson.id)} />
       </>
@@ -98,7 +99,7 @@ export default function LessonsPage() {
         {lessons.map((lesson, index) => (
           <Link
             key={lesson.id}
-            to={`/lessons/${lesson.id}`}
+            to={getLessonUrl(lesson.id)}
             className={`text-left bg-white rounded-xl p-5 shadow-sm border hover:shadow-md hover:border-amber-200 transition-all group block ${
               completedLessons.includes(lesson.id) ? 'border-green-200 bg-green-50/30' : 'border-gray-100'
             }`}
