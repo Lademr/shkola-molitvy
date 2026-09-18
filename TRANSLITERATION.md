@@ -147,18 +147,19 @@ const articleUrl = `/blog/${generateSlug(articleTitle)}`;
 https://shkola-molitvy.ru/#/blog/смелость-божьих-детей
 ```
 ❌ Кириллица в URL  
-❌ Символ `#` (hash routing)  
 ❌ Проблемы с кодировкой  
 ❌ Плохая индексация
 
 ### После транслитерации
 ```
-https://shkola-molitvy.ru/blog/smelost-bozhih-detey
+https://shkola-molitvy.ru/#/blog/smelost-bozhih-detey
 ```
 ✅ Латиница в URL  
-✅ Чистый URL без `#`  
 ✅ Нет проблем с кодировкой  
-✅ Отличная индексация
+✅ Лучшая индексация  
+✅ Читаемые URL
+
+**Примечание:** Мы используем HashRouter (`/#/`) для совместимости с GitHub Pages. Транслитерация делает URL читаемыми даже внутри hash-роутинга.
 
 ## Проверка
 
