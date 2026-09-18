@@ -1,5 +1,5 @@
 import { useState, lazy, Suspense } from 'react';
-import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { BookOpen, Heart, MessageCircle, CheckSquare, Bell, Sparkles, Home, Menu, X, User, Moon, Sun, BookMarked, Video, Award, FileText, ChevronDown } from 'lucide-react';
 import { useTheme } from './contexts/ThemeContext';
 import { useUser } from './contexts/UserContext';
