@@ -116,8 +116,11 @@ function Navigation() {
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-3">
-            <img src="/logo.svg" alt="Школа Молитвы" className="w-14 h-14" />
-            <span className="font-bold text-xl text-gray-800 dark:text-gray-100">Школа Молитвы</span>
+            {/* Полная версия логотипа для десктопа */}
+            <img src="/logo-full.svg" alt="Школа Молитвы" className="hidden md:block dark:hidden h-12 w-auto" />
+            <img src="/logo-full-dark.svg" alt="Школа Молитвы" className="hidden md:hidden dark:md:block h-12 w-auto" />
+            {/* Короткая версия (только иконка) для мобильных */}
+            <img src="/logo-icon.svg" alt="Школа Молитвы" className="md:hidden w-10 h-10" />
           </Link>
 
           {/* Desktop nav */}

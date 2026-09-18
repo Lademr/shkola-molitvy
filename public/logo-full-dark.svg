@@ -1,16 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
-  <!-- Фон с градиентом -->
-  <defs>
-    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#FFFBEB;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#FEF3C7;stop-opacity:1" />
-    </linearGradient>
-  </defs>
-  
-  <rect width="1200" height="630" fill="url(#bgGradient)"/>
-  
-  <!-- Иконка логотипа (увеличенная) -->
-  <g transform="translate(100, 200) scale(3)">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 60">
+  <!-- Иконка: стилизованная книга с крестом (моно-линейная) -->
+  <g transform="translate(10, 10)">
     <!-- Левая страница книги -->
     <path d="M 0,5 Q 0,0 5,0 L 18,0 Q 20,0 20,2 L 20,38 Q 20,40 18,40 L 5,40 Q 0,40 0,35 Z" 
           fill="none" 
@@ -85,31 +75,13 @@
           stroke-linecap="round"/>
   </g>
   
-  <!-- Название сайта -->
-  <text x="320" y="320" 
+  <!-- Текст "Школа Молитвы" (для тёмной темы - белый) -->
+  <text x="65" y="38" 
         font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" 
-        font-size="72" 
+        font-size="28" 
         font-weight="700"
-        fill="#1F2937"
-        letter-spacing="-2">
+        fill="#F9FAFB"
+        letter-spacing="-0.5">
     Школа Молитвы
-  </text>
-  
-  <!-- Описание -->
-  <text x="320" y="380" 
-        font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" 
-        font-size="32" 
-        font-weight="400"
-        fill="#6B7280">
-    Интерактивное обучение молитвенной жизни
-  </text>
-  
-  <!-- URL -->
-  <text x="320" y="440" 
-        font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" 
-        font-size="24" 
-        font-weight="500"
-        fill="#F59E0B">
-    shkola-molitvy.ru
   </text>
 </svg>
