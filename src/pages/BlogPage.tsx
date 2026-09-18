@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FileText, Calendar, Clock, ArrowRight, Tag } from 'lucide-react';
-import { blogPosts, generateSlug } from './BlogPostPage';
+import { blogPosts } from './BlogPostPage';
+import { generateSlug } from '../utils/transliterate';
 
 export default function BlogPage() {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);

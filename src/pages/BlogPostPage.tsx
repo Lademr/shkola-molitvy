@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Calendar, Clock, ArrowLeft, User } from 'lucide-react';
 import ShareButtons from '../components/ShareButtons';
+import { generateSlug } from '../utils/transliterate';
 
 interface BlogPost {
   id: number;
@@ -56,7 +57,7 @@ const blogPosts: BlogPost[] = [
 
 Когда человеческая воля соединяется с Божьим повелением, молитва перестает быть немощной просьбой и превращается в **декрет соработничества**, который пробивает духовное сопротивление врага.
 
-Чтобы подробнее понять, как сохранять чуткость духа и противостоять вражескому давлению, читайте нашу статью [Смелость Божьих детей и молитвенное бодрствование](/blog/smelost-bozhih-detej-sostradanie-i-bodrstvovanie).
+Чтобы подробнее понять, как сохранять чуткость духа и противостоять вражескому давлению, читайте нашу статью ["Смелость Божьих детей и молитвенное бодрствование"](/blog/smelost-bozhih-detej-sostradanie-i-bodrstvovanie).
 
 ## 3. Греческий экзегезис Мф. 9:38: Что значит глагол «выслать» (ekballō)?
 
@@ -1288,16 +1289,6 @@ const blogPosts: BlogPost[] = [
     author: "Школа Молитвы"
   }
 ];
-
-// Функция для генерации slug из заголовка
-function generateSlug(title: string): string {
-  return title
-    .toLowerCase()
-    .replace(/[^\w\sа-яё]/gi, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .trim();
-}
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
