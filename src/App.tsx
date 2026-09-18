@@ -51,7 +51,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/lessons" element={<LessonsPage />} />
-            <Route path="/lessons/:id" element={<LessonsPage />} />
+            <Route path="/lessons/:id/:slug?" element={<LessonsPage />} />
             <Route path="/prayers" element={<PrayersPage />} />
             <Route path="/scripture" element={<ScripturePage />} />
             <Route path="/quiz" element={<QuizPage />} />
