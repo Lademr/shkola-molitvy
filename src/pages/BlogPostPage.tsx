@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Calendar, Clock, ArrowLeft, User } from 'lucide-react';
+import ShareButtons from '../components/ShareButtons';
 
 interface BlogPost {
   id: number;
@@ -1433,14 +1434,24 @@ export default function BlogPostPage() {
             return <p key={i} className="text-gray-700 dark:text-gray-200 mb-3 leading-relaxed" dangerouslySetInnerHTML={{ __html: formattedLine }} />;
           })}
 
-          <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700 text-center">
-            <p className="text-gray-500 dark:text-gray-400 text-sm mb-3">Понравилась статья?</p>
-            <Link
-              to="/lessons"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-3 rounded-xl font-medium hover:from-amber-600 hover:to-orange-600 transition-all"
-            >
-              Перейти к урокам <ArrowLeft className="w-4 h-4 rotate-180" />
-            </Link>
+          <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700">
+            {/* Кнопки "Поделиться" */}
+            <div className="mb-6">
+              <ShareButtons 
+                title={post.title}
+                description={post.excerpt}
+              />
+            </div>
+            
+            <div className="text-center">
+              <p className="text-gray-500 dark:text-gray-400 text-sm mb-3">Понравилась статья?</p>
+              <Link
+                to="/lessons"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-3 rounded-xl font-medium hover:from-amber-600 hover:to-orange-600 transition-all"
+              >
+                Перейти к урокам <ArrowLeft className="w-4 h-4 rotate-180" />
+              </Link>
+            </div>
           </div>
         </div>
       </article>

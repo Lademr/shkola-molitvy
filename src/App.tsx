@@ -112,7 +112,7 @@ function Navigation() {
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-2">
-            <Sparkles className="w-6 h-6 text-amber-500" />
+            <img src="/logo.svg" alt="Школа Молитвы" className="w-10 h-10" />
             <span className="font-bold text-lg text-gray-800 dark:text-gray-100">Школа Молитвы</span>
           </Link>
 
