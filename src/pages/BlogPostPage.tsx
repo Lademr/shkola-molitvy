@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { Calendar, Clock, ArrowLeft, User } from 'lucide-react';
 import ShareButtons from '../components/ShareButtons';
 import { generateSlug } from '../utils/transliterate';
+import SEOHead from '../components/SEOHead';
 
 interface BlogPost {
   id: number;
@@ -1294,49 +1295,7 @@ export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
   const post = blogPosts.find(p => generateSlug(p.title) === slug);
 
-  useEffect(() => {
-    // Обновляем мета-теги для SEO
-    if (post) {
-      const originalTitle = document.title;
-      const originalDescription = document.querySelector('meta[name="description"]')?.getAttribute('content') || '';
-      const originalKeywords = document.querySelector('meta[name="keywords"]')?.getAttribute('content') || '';
 
-      // Обновляем title
-      if (post.metaTitle) {
-        document.title = post.metaTitle;
-      } else {
-        document.title = `${post.title} | Школа Молитвы`;
-      }
-
-      // Обновляем description
-      const descMeta = document.querySelector('meta[name="description"]');
-      if (descMeta && post.metaDescription) {
-        descMeta.setAttribute('content', post.metaDescription);
-      }
-
-      // Обновляем keywords
-      const keywordsMeta = document.querySelector('meta[name="keywords"]');
-      if (keywordsMeta && post.keywords) {
-        keywordsMeta.setAttribute('content', post.keywords);
-      }
-
-      // Обновляем Open Graph теги
-      const ogTitle = document.querySelector('meta[property="og:title"]');
-      if (ogTitle) ogTitle.setAttribute('content', post.metaTitle || post.title);
-      
-      const ogDesc = document.querySelector('meta[property="og:description"]');
-      if (ogDesc && post.metaDescription) ogDesc.setAttribute('content', post.metaDescription);
-
-      // Восстанавливаем оригинальные мета-теги при размонтировании
-      return () => {
-        document.title = originalTitle;
-        if (descMeta) descMeta.setAttribute('content', originalDescription);
-        if (keywordsMeta) keywordsMeta.setAttribute('content', originalKeywords);
-        if (ogTitle) ogTitle.setAttribute('content', 'Школа Молитвы — Интерактивное обучение молитвенной жизни');
-        if (ogDesc) ogDesc.setAttribute('content', 'Бесплатный интерактивный курс для христиан: уроки молитвы, примеры молитв, разбор Писания, тесты, напоминания и духовный рост.');
-      };
-    }
-  }, [post]);
 
   if (!post) {
     return (
@@ -1351,6 +1310,12 @@ export default function BlogPostPage() {
 
   return (
     <div className="max-w-3xl mx-auto">
+      <SEOHead
+        title={post.metaTitle || `${post.title} — Школа Молитвы`}
+        description={post.metaDescription || post.excerpt}
+        keywords={post.keywords}
+        canonical={`https://shkola-molitvy.ru/blog/${generateSlug(post.title)}`}
+      />
       <Link
         to="/blog"
         className="flex items-center gap-2 text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 font-medium mb-6"
