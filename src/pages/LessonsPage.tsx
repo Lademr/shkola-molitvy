@@ -6,6 +6,7 @@ import { useUser } from '../contexts/UserContext';
 import FloatingTOC from '../components/FloatingTOC';
 import ReviewerBlock from '../components/ReviewerBlock';
 import CitationBlock from '../components/CitationBlock';
+import SEOHead from '../components/SEOHead';
 
 export default function LessonsPage() {
   const { user, isLoggedIn, completeLesson } = useUser();
@@ -62,11 +63,27 @@ export default function LessonsPage() {
   }
 
   if (selectedLesson) {
-    return <LessonDetail lesson={selectedLesson} onBack={() => navigate('/lessons')} onComplete={markComplete} isCompleted={completedLessons.includes(selectedLesson.id)} />;
+    return (
+      <>
+        <SEOHead
+          title={`Урок ${selectedLesson.id}: ${selectedLesson.title} — Школа Молитвы`}
+          description={selectedLesson.description}
+          keywords={`урок ${selectedLesson.id}, ${selectedLesson.title}, молитва, ${selectedLesson.subtitle}, школа молитвы`}
+          canonical={`https://shkola-molitvy.ru/lessons/${selectedLesson.id}`}
+        />
+        <LessonDetail lesson={selectedLesson} onBack={() => navigate('/lessons')} onComplete={markComplete} isCompleted={completedLessons.includes(selectedLesson.id)} />
+      </>
+    );
   }
 
   return (
     <div>
+      <SEOHead
+        title="Уроки молитвенной жизни — Школа Молитвы"
+        description="Пошаговое обучение молитвенной жизни: от основ до продвинутых практик. 9 уроков с разборами Писания, тестами и практическими заданиями."
+        keywords="уроки молитвы, обучение молитве, школа молитвы, духовный рост, водительство Духом"
+        canonical="https://shkola-molitvy.ru/lessons"
+      />
       <header className="text-center mb-10">
         <h1 className="text-3xl font-bold text-gray-800 mb-3">📖 Уроки молитвенной жизни</h1>
         <p className="text-gray-500 max-w-lg mx-auto">
